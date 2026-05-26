@@ -10,7 +10,16 @@ document.addEventListener('DOMContentLoaded', () => {
     initShareActions();
     initAOS();
     initDeepLinkHighlight();
+    initDynamicCopyright();
 });
+
+/* ---- DYNAMIC COPYRIGHT YEAR ---- */
+function initDynamicCopyright() {
+    const el = document.querySelector('.footer-bottom p');
+    if (el && el.textContent.includes('©')) {
+        el.textContent = el.textContent.replace(/© \d{4}/, `© ${new Date().getFullYear()}`);
+    }
+}
 
 /* ---- NAVIGATION ---- */
 function initNavigation() {
