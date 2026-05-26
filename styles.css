@@ -738,6 +738,25 @@
         gap: var(--space-lg);
     }
 
+    .card-grid--3 {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    }
+
+    .card-link {
+        display: inline-block;
+        margin-top: auto;
+        padding-top: var(--space-sm);
+        font-weight: 600;
+        font-size: var(--text-sm);
+        color: var(--color-primary);
+        text-decoration: none;
+        transition: color var(--transition-fast);
+    }
+
+    .card-link:hover {
+        color: var(--color-accent);
+    }
+
     /* Section Card (home page) */
     .section-card {
         display: flex;
@@ -1027,6 +1046,54 @@
         border-color: var(--color-primary);
         box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-primary) 15%, transparent);
         outline: none;
+    }
+
+    /* ---- PINNED ANNOUNCEMENT ---- */
+    .pinned-announcement {
+        margin-bottom: var(--space-lg);
+    }
+
+    .pinned-banner {
+        display: flex;
+        align-items: center;
+        gap: var(--space-lg);
+        padding: var(--space-lg) var(--space-xl);
+        background: linear-gradient(135deg, color-mix(in srgb, var(--color-primary) 8%, var(--color-surface)), color-mix(in srgb, var(--color-accent) 6%, var(--color-surface)));
+        border: 2px solid color-mix(in srgb, var(--color-primary) 30%, transparent);
+        border-radius: var(--radius-lg);
+        box-shadow: var(--shadow-sm);
+    }
+
+    .pinned-icon {
+        font-size: 2rem;
+        flex-shrink: 0;
+    }
+
+    .pinned-banner h3 {
+        font-size: clamp(1rem, 2vw, 1.25rem);
+        color: var(--color-text);
+    }
+
+    .pinned-banner p {
+        color: var(--color-text-muted);
+        font-size: var(--text-sm);
+    }
+
+    .pinned-banner .btn--sm {
+        flex-shrink: 0;
+        padding: var(--space-xs) var(--space-md);
+        font-size: var(--text-sm);
+    }
+
+    @media (max-width: 600px) {
+        .pinned-banner {
+            flex-direction: column;
+            align-items: flex-start;
+            text-align: left;
+        }
+        .pinned-banner .btn--sm {
+            align-self: flex-start;
+        }
     }
 
     /* ---- MEETING TIMES OVERVIEW ---- */
