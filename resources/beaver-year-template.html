@@ -4,20 +4,144 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Typical Beaver Year | Shannon Banks Scouting</title>
-    <meta name="description" content="A sample week-by-week programme for a Beaver Scout year — activities, outings, and events from September to June.">
+    <meta name="description" content="A sample week-by-week programme for a Beaver Scout year — activities, outings, and events from September to June with full session plans.">
     <meta property="og:title" content="Typical Beaver Year — 25th Limerick Scouting">
     <meta property="og:url" content="https://shannonbanksscouting.github.io/resources/beaver-year-template.html">
     <link rel="stylesheet" href="../styles.css">
     <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css">
     <style>
-        .year-table { width: 100%; border-collapse: collapse; margin-top: var(--space-lg); }
-        .year-table th, .year-table td { padding: var(--space-sm) var(--space-md); text-align: left; border-bottom: 1px solid var(--color-border); }
-        .year-table th { background: var(--color-surface); font-weight: 700; font-size: var(--font-size-sm); text-transform: uppercase; letter-spacing: 0.05em; color: var(--color-text-muted); position: sticky; top: 0; }
-        .year-table tr:hover td { background: color-mix(in srgb, var(--color-beavers) 5%, transparent); }
-        .month-header td { background: color-mix(in srgb, var(--color-beavers) 12%, var(--color-surface)); font-weight: 700; color: var(--color-beavers); border-bottom: 2px solid var(--color-beavers); }
-        .year-table .special td { font-weight: 600; }
-        .year-table .no-meeting td { opacity: 0.6; font-style: italic; }
-        .category-legend { display: flex; flex-wrap: wrap; gap: var(--space-md); margin-top: var(--space-lg); margin-bottom: var(--space-xl); }
+        /* Schedule accordion styles */
+        .schedule-month { margin-bottom: var(--space-xl); }
+        .month-title {
+            font-size: var(--font-size-xl);
+            font-weight: 800;
+            color: var(--color-beavers);
+            padding: var(--space-sm) 0;
+            border-bottom: 2px solid var(--color-beavers);
+            margin-bottom: var(--space-md);
+        }
+
+        .activity-item {
+            border: 1px solid var(--color-border);
+            border-radius: var(--border-radius-md);
+            margin-bottom: var(--space-sm);
+            overflow: hidden;
+            transition: box-shadow var(--transition-fast);
+        }
+        .activity-item:hover { box-shadow: 0 4px 12px var(--color-shadow); }
+        .activity-item[open] { box-shadow: 0 4px 20px var(--color-shadow-hover); }
+
+        .activity-item summary {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+            padding: var(--space-md) var(--space-lg);
+            cursor: pointer;
+            font-weight: 600;
+            list-style: none;
+            background: var(--color-surface);
+            transition: background var(--transition-fast);
+        }
+        .activity-item summary::-webkit-details-marker { display: none; }
+        .activity-item summary::before {
+            content: '\25B6';
+            font-size: 0.7em;
+            color: var(--color-text-muted);
+            transition: transform var(--transition-fast);
+            flex-shrink: 0;
+        }
+        .activity-item[open] summary::before { transform: rotate(90deg); }
+        .activity-item summary:hover { background: color-mix(in srgb, var(--color-beavers) 5%, var(--color-surface)); }
+
+        .activity-week {
+            font-size: var(--font-size-sm);
+            color: var(--color-text-muted);
+            min-width: 70px;
+        }
+        .activity-name { flex: 1; }
+        .activity-type {
+            font-size: var(--font-size-sm);
+            padding: 2px 8px;
+            border-radius: 999px;
+            background: color-mix(in srgb, var(--color-beavers) 10%, transparent);
+            color: var(--color-beavers);
+            white-space: nowrap;
+        }
+
+        .activity-detail {
+            padding: var(--space-lg) var(--space-xl);
+            border-top: 1px solid var(--color-border);
+            background: color-mix(in srgb, var(--color-surface) 95%, var(--color-beavers));
+        }
+
+        .plan-panels {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: var(--space-lg);
+        }
+        @media (min-width: 768px) {
+            .plan-panels--dual { grid-template-columns: 1fr 1fr; }
+        }
+
+        .plan-panel {
+            border: 1px solid var(--color-border);
+            border-radius: var(--border-radius-md);
+            overflow: hidden;
+        }
+        .plan-panel--good { border-top: 3px solid #10B981; }
+        .plan-panel--bad { border-top: 3px solid #F59E0B; }
+
+        .plan-header {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            padding: var(--space-sm) var(--space-md);
+            font-weight: 700;
+            font-size: var(--font-size-sm);
+            background: var(--color-surface);
+        }
+
+        .time-list { list-style: none; padding: var(--space-md); }
+        .time-list li {
+            display: flex;
+            gap: var(--space-md);
+            padding: var(--space-sm) 0;
+            border-bottom: 1px solid color-mix(in srgb, var(--color-border) 50%, transparent);
+        }
+        .time-list li:last-child { border-bottom: none; }
+        .time-label {
+            font-weight: 700;
+            font-size: var(--font-size-sm);
+            color: var(--color-beavers);
+            min-width: 90px;
+            flex-shrink: 0;
+        }
+
+        .detail-section { margin-top: var(--space-lg); }
+        .detail-section h4 {
+            font-size: var(--font-size-base);
+            margin-bottom: var(--space-sm);
+            color: var(--color-primary);
+        }
+        .detail-section ul, .detail-section ol {
+            padding-left: var(--space-lg);
+            margin-bottom: var(--space-md);
+        }
+        .detail-section li { margin-bottom: var(--space-xs); }
+
+        .activity-item.no-meeting summary {
+            opacity: 0.6;
+            font-style: italic;
+        }
+        .activity-item.special summary .activity-name { color: var(--color-beavers); }
+
+        .category-legend {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--space-md);
+            margin-top: var(--space-lg);
+            margin-bottom: var(--space-xl);
+        }
         .legend-item { display: flex; align-items: center; gap: var(--space-xs); font-size: var(--font-size-sm); }
         .legend-dot { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; }
         .legend-dot--craft { background: #F59E0B; }
@@ -26,9 +150,38 @@
         .legend-dot--event { background: #EC4899; }
         .legend-dot--games { background: #0EA5E9; }
         .legend-dot--skills { background: #8B5CF6; }
+
+        .video-embed {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            max-width: 560px;
+            margin: var(--space-md) 0;
+            border-radius: var(--border-radius-md);
+        }
+        .video-embed iframe {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            border: 0;
+            border-radius: var(--border-radius-md);
+        }
+
+        .map-embed {
+            width: 100%;
+            max-width: 560px;
+            height: 300px;
+            border: 0;
+            border-radius: var(--border-radius-md);
+            margin: var(--space-md) 0;
+        }
+
         @media (max-width: 600px) {
-            .year-table th:first-child, .year-table td:first-child { min-width: 90px; }
-            .year-table { font-size: var(--font-size-sm); }
+            .activity-item summary { padding: var(--space-sm) var(--space-md); gap: var(--space-sm); }
+            .activity-week { min-width: 55px; font-size: var(--font-size-xs); }
+            .activity-type { display: none; }
+            .activity-detail { padding: var(--space-md); }
         }
     </style>
 </head>
@@ -73,15 +226,15 @@
         <div class="container hero-content">
             <span class="badge badge--beavers">Template</span>
             <h1>A Typical Beaver Year</h1>
-            <p class="hero-subtitle">Sample week-by-week programme from September to June — adapt it for your section!</p>
+            <p class="hero-subtitle">Full session plans from September to June — click any activity to see the detailed schedule</p>
         </div>
     </header>
 
     <main id="main">
         <section class="section">
             <div class="container">
-                <p style="text-align: center; max-width: 750px; margin: 0 auto var(--space-xl);">
-                    This is a real-world example of a full Beaver Scout year. It shows the mix of crafts, outdoor activities, visits, games, and special events that make up a balanced programme. Use it as inspiration when planning your own section's year.
+                <p style="text-align: center; max-width: 750px; margin: 0 auto var(--space-lg);">
+                    This is a real-world example of a full Beaver Scout year based on our Tuesday night section. Click any activity to expand the full session plan including time slots, Plan A/Plan B options, materials needed, and game instructions.
                 </p>
 
                 <div class="category-legend">
@@ -93,248 +246,1206 @@
                     <span class="legend-item"><span class="legend-dot legend-dot--skills"></span> Skills / Badge Work</span>
                 </div>
 
-                <div style="overflow-x: auto;">
-                    <table class="year-table" data-aos="fade-up">
-                        <thead>
-                            <tr>
-                                <th>Week</th>
-                                <th>Activity</th>
-                                <th>Type</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <!-- SEPTEMBER -->
-                            <tr class="month-header"><td colspan="3">September</td></tr>
-                            <tr>
-                                <td>Week 1</td>
-                                <td>Organising Lodges &amp; Lodge Posters</td>
-                                <td>🎨 Craft</td>
-                            </tr>
-                            <tr>
-                                <td>Week 2</td>
-                                <td>Hike (weather permitting) or Compass Making</td>
-                                <td>🥾 Outdoor</td>
-                            </tr>
-                            <tr class="special">
-                                <td>Week 3</td>
-                                <td>SUAS Climbing Wall</td>
-                                <td>🏛️ Visit</td>
-                            </tr>
+                <!-- ============ SEPTEMBER ============ -->
+                <div class="schedule-month" data-aos="fade-up">
+                    <h2 class="month-title">September</h2>
 
-                            <!-- OCTOBER -->
-                            <tr class="month-header"><td colspan="3">October</td></tr>
-                            <tr class="special">
-                                <td>Week 1</td>
-                                <td>Special Outing (e.g. Circus Visit)</td>
-                                <td>🏛️ Visit</td>
-                            </tr>
-                            <tr>
-                                <td>Week 2</td>
-                                <td>Beaver Games Evening</td>
-                                <td>🎮 Games</td>
-                            </tr>
-                            <tr class="special">
-                                <td>Week 3</td>
-                                <td>Halloween Party (with magician or entertainer)</td>
-                                <td>🎉 Event</td>
-                            </tr>
-                            <tr class="no-meeting">
-                                <td>Week 4</td>
-                                <td>Mid-term Break — No Meeting</td>
-                                <td>—</td>
-                            </tr>
+                    <details class="activity-item">
+                        <summary>
+                            <span class="activity-week">Week 1</span>
+                            <span class="activity-name">Organising Lodges &amp; Lodge Posters</span>
+                            <span class="activity-type">&#x1F3A8; Craft</span>
+                        </summary>
+                        <div class="activity-detail">
+                            <div class="plan-panels plan-panels--dual">
+                                <div class="plan-panel plan-panel--good">
+                                    <div class="plan-header">&#x1F324;&#xFE0F; Plan A: Outdoor (Nice Weather)</div>
+                                    <ul class="time-list">
+                                        <li><span class="time-label">18:30</span><span>&#x1F97E; Hike along Shannon Banks and Shannon Fields to the Exercise Machines. <em>Don't forget warm and waterproof clothing!</em></span></li>
+                                        <li><span class="time-label">20:00</span><span>&#x1F3E0; Return to Scout Hall</span></li>
+                                    </ul>
+                                </div>
+                                <div class="plan-panel plan-panel--bad">
+                                    <div class="plan-header">&#x1F327;&#xFE0F; Plan B: Indoor (Bad Weather)</div>
+                                    <ul class="time-list">
+                                        <li><span class="time-label">18:30&#x2013;18:45</span><span>&#x1F6A2; Ship to Shore Game</span></li>
+                                        <li><span class="time-label">18:45&#x2013;19:00</span><span>&#x1F9D1;&#x200D;&#x1F91D;&#x200D;&#x1F9D1; Introduce New Members &amp; Assign Beavers to Lodges</span></li>
+                                        <li><span class="time-label">19:00&#x2013;19:45</span><span>&#x1F3A8; Create Lodge Posters for Scout Hall. <em>Don't forget your photograph!</em></span></li>
+                                        <li><span class="time-label">19:45&#x2013;20:00</span><span>&#x1F4DD; Scout Law Game</span></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="detail-section">
+                                <h4>&#x1F4DD; Scout Law Game</h4>
+                                <p><strong>Objective:</strong> Reinforce the new lodges and introduce the Beaver Scout Law in a fun, competitive way.</p>
+                                <ul>
+                                    <li><strong>Preparation:</strong> Write the words of the Beaver Scout Law on separate slips of paper &#x2014; one set per lodge.</li>
+                                    <li><strong>The Challenge:</strong> Each lodge gets an envelope with jumbled words and must arrange them correctly: <em>&#x201C;A Beaver Scout has fun, and is kind and helpful.&#x201D;</em></li>
+                                    <li><strong>The Race:</strong> First team to correctly lay out the law wins.</li>
+                                    <li><strong>Fall In:</strong> Everyone recites the Beaver Scout Law together.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </details>
 
-                            <!-- NOVEMBER -->
-                            <tr class="month-header"><td colspan="3">November</td></tr>
-                            <tr class="special">
-                                <td>Week 1</td>
-                                <td>Community Visit (e.g. Marine Search &amp; Rescue)</td>
-                                <td>🏛️ Visit</td>
-                            </tr>
-                            <tr class="special">
-                                <td>Weekend</td>
-                                <td>Local Visit (e.g. Garda Station)</td>
-                                <td>🏛️ Visit</td>
-                            </tr>
-                            <tr>
-                                <td>Week 2</td>
-                                <td>Bingo Night or Indoor Games</td>
-                                <td>🎮 Games</td>
-                            </tr>
-                            <tr>
-                                <td>Week 3</td>
-                                <td>Urban Orienteering / Treasure Hunt</td>
-                                <td>🥾 Outdoor</td>
-                            </tr>
-                            <tr>
-                                <td>Week 4</td>
-                                <td>Investiture Preparation</td>
-                                <td>🧭 Skills</td>
-                            </tr>
-                            <tr class="special">
-                                <td>Weekend</td>
-                                <td>Investiture Ceremony</td>
-                                <td>🎉 Event</td>
-                            </tr>
+                    <details class="activity-item">
+                        <summary>
+                            <span class="activity-week">Week 2</span>
+                            <span class="activity-name">Hike (weather permitting) or Compass Making</span>
+                            <span class="activity-type">&#x1F97E; Outdoor</span>
+                        </summary>
+                        <div class="activity-detail">
+                            <div class="plan-panels plan-panels--dual">
+                                <div class="plan-panel plan-panel--good">
+                                    <div class="plan-header">&#x1F324;&#xFE0F; Plan A: Outdoor (Nice Weather)</div>
+                                    <ul class="time-list">
+                                        <li><span class="time-label">18:30</span><span>&#x1F97E; Shannon Banks Hike with Nature Scavenger Hunt. <em>Bring a pen/pencil and a snack!</em></span></li>
+                                        <li><span class="time-label">20:00</span><span>&#x1F3E0; Return to Scout Hall</span></li>
+                                    </ul>
+                                </div>
+                                <div class="plan-panel plan-panel--bad">
+                                    <div class="plan-header">&#x1F327;&#xFE0F; Plan B: Indoor (Bad Weather)</div>
+                                    <ul class="time-list">
+                                        <li><span class="time-label">18:30&#x2013;18:45</span><span>&#x1F6A2; Ship to Shore Game</span></li>
+                                        <li><span class="time-label">18:45&#x2013;19:00</span><span>&#x1F4DD; Scout Law Game</span></li>
+                                        <li><span class="time-label">19:00&#x2013;19:30</span><span>&#x1F9ED; Compass Making</span></li>
+                                        <li><span class="time-label">19:30&#x2013;20:00</span><span>&#x1F3AE; Beaver Scout Game</span></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="detail-section">
+                                <h4>&#x1F9ED; Compass Making Instructions</h4>
+                                <p><strong>Materials needed:</strong> A leaf, a paper clip, a strong magnet, a small bowl of water</p>
+                                <ol>
+                                    <li><strong>Magnetize the paper clip:</strong> Rub it repeatedly in one direction along the magnet (20&#x2013;30 times).</li>
+                                    <li><strong>Float the leaf:</strong> Gently place the leaf flat on the surface of the water.</li>
+                                    <li><strong>Place the paper clip:</strong> Carefully lay the magnetized paper clip on top of the floating leaf.</li>
+                                    <li><strong>Watch it turn:</strong> The paper clip will slowly turn until one end points north!</li>
+                                </ol>
+                                <p><strong>Games resource:</strong> <a href="https://www.tredegarscouts.co.uk/wp-content/uploads/2016/02/WDS-Beaver-Games-Book.pdf" target="_blank" rel="noopener noreferrer">WDS Beaver Games Book (PDF)</a></p>
+                            </div>
+                        </div>
+                    </details>
 
-                            <!-- DECEMBER -->
-                            <tr class="month-header"><td colspan="3">December</td></tr>
-                            <tr>
-                                <td>Week 1</td>
-                                <td>Christmas Craft (decorations or cards)</td>
-                                <td>🎨 Craft</td>
-                            </tr>
-                            <tr class="special">
-                                <td>Weekend</td>
-                                <td>Carol Singing at local nursing home</td>
-                                <td>🎉 Event</td>
-                            </tr>
-                            <tr>
-                                <td>Week 2</td>
-                                <td>Board Games Night — bring your favourites!</td>
-                                <td>🎮 Games</td>
-                            </tr>
-                            <tr class="special">
-                                <td>Week 3</td>
-                                <td>Christmas Pyjama Party &amp; Movie Night</td>
-                                <td>🎉 Event</td>
-                            </tr>
-                            <tr class="no-meeting">
-                                <td>Weeks 4–5</td>
-                                <td>Christmas Holidays — No Meetings</td>
-                                <td>—</td>
-                            </tr>
-
-                            <!-- JANUARY -->
-                            <tr class="month-header"><td colspan="3">January</td></tr>
-                            <tr>
-                                <td>Week 2</td>
-                                <td>Beaver Games Night (WDS Games Book)</td>
-                                <td>🎮 Games</td>
-                            </tr>
-                            <tr>
-                                <td>Week 3</td>
-                                <td>Mini Bridges &amp; Towers + Knot Tying</td>
-                                <td>🧭 Skills</td>
-                            </tr>
-                            <tr>
-                                <td>Week 4</td>
-                                <td>St. Brigid's Crosses</td>
-                                <td>🎨 Craft</td>
-                            </tr>
-
-                            <!-- FEBRUARY -->
-                            <tr class="month-header"><td colspan="3">February</td></tr>
-                            <tr>
-                                <td>Week 1</td>
-                                <td>Parachute Making</td>
-                                <td>🎨 Craft</td>
-                            </tr>
-                            <tr class="special">
-                                <td>Week 2</td>
-                                <td>Knife Safety &amp; Bushcraft (guest instructor)</td>
-                                <td>🧭 Skills</td>
-                            </tr>
-                            <tr>
-                                <td>Week 3</td>
-                                <td>Pancake Tuesday — cooking activity</td>
-                                <td>🎨 Craft</td>
-                            </tr>
-                            <tr class="no-meeting">
-                                <td>Week 4</td>
-                                <td>Mid-term Break — No Meeting</td>
-                                <td>—</td>
-                            </tr>
-
-                            <!-- MARCH -->
-                            <tr class="month-header"><td colspan="3">March</td></tr>
-                            <tr>
-                                <td>Week 1</td>
-                                <td>Outdoor Hike (weather permitting)</td>
-                                <td>🥾 Outdoor</td>
-                            </tr>
-                            <tr class="special">
-                                <td>Week 2</td>
-                                <td>Uniform Night — New Beaver Investiture + Compass Making</td>
-                                <td>🎉 Event</td>
-                            </tr>
-                            <tr class="special">
-                                <td>March 17</td>
-                                <td>St. Patrick's Day — Optional Group Mass &amp; Parade</td>
-                                <td>🎉 Event</td>
-                            </tr>
-                            <tr>
-                                <td>Week 4</td>
-                                <td>Craft Night (e.g. Vuvuzelas)</td>
-                                <td>🎨 Craft</td>
-                            </tr>
-                            <tr class="special">
-                                <td>Weekend</td>
-                                <td>County Beaver Hike (weather dependent)</td>
-                                <td>🥾 Outdoor</td>
-                            </tr>
-                            <tr class="no-meeting">
-                                <td>Week 5</td>
-                                <td>Easter Holidays — No Meeting (2 weeks)</td>
-                                <td>—</td>
-                            </tr>
-
-                            <!-- APRIL -->
-                            <tr class="month-header"><td colspan="3">April</td></tr>
-                            <tr>
-                                <td>Week 3</td>
-                                <td>Colouring &amp; Paper Airplane Competition</td>
-                                <td>🎨 Craft</td>
-                            </tr>
-                            <tr class="special">
-                                <td>Week 4</td>
-                                <td>Long Hike (e.g. 5km trail walk)</td>
-                                <td>🥾 Outdoor</td>
-                            </tr>
-                            <tr class="special">
-                                <td>Week 5</td>
-                                <td>Loop Walk along river / canal</td>
-                                <td>🥾 Outdoor</td>
-                            </tr>
-
-                            <!-- MAY -->
-                            <tr class="month-header"><td colspan="3">May</td></tr>
-                            <tr>
-                                <td>Week 1</td>
-                                <td>Tent Pitching Practice — prep for overnight!</td>
-                                <td>🧭 Skills</td>
-                            </tr>
-                            <tr>
-                                <td>Week 2</td>
-                                <td>Urban Orienteering Part II</td>
-                                <td>🥾 Outdoor</td>
-                            </tr>
-                            <tr class="special">
-                                <td>Week 3</td>
-                                <td>Overnight Camp (Friday–Saturday)</td>
-                                <td>🎉 Event</td>
-                            </tr>
-                            <tr class="special">
-                                <td>Weekend</td>
-                                <td>County Beaver Event (full day outing)</td>
-                                <td>🎉 Event</td>
-                            </tr>
-
-                            <!-- JUNE -->
-                            <tr class="month-header"><td colspan="3">June</td></tr>
-                            <tr class="special">
-                                <td>Week 1</td>
-                                <td>End of Year Party</td>
-                                <td>🎉 Event</td>
-                            </tr>
-                            <tr class="special">
-                                <td>Weekend</td>
-                                <td>Group Camp (all sections)</td>
-                                <td>🎉 Event</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <details class="activity-item special">
+                        <summary>
+                            <span class="activity-week">Week 3</span>
+                            <span class="activity-name">SUAS Climbing Wall</span>
+                            <span class="activity-type">&#x1F3DB;&#xFE0F; Visit</span>
+                        </summary>
+                        <div class="activity-detail">
+                            <div class="plan-panels">
+                                <div class="plan-panel plan-panel--good">
+                                    <div class="plan-header">&#x1F9D7; SUAS Climbing Wall Adventure</div>
+                                    <ul class="time-list">
+                                        <li><span class="time-label">18:45</span><span>&#x1F697; Meet at SUAS Climbing Centre (parents drop off directly at venue)</span></li>
+                                        <li><span class="time-label">19:00&#x2013;20:00</span><span>&#x1F9D7; Climbing Session (1 hour)</span></li>
+                                        <li><span class="time-label">20:10</span><span>&#x1F697; Collection Time for Parents</span></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="detail-section">
+                                <h4>Safety Requirements</h4>
+                                <ul>
+                                    <li><strong>Proper footwear:</strong> Runners/trainers required</li>
+                                    <li><strong>Hair safety:</strong> Long hair must be tied back</li>
+                                    <li><strong>Clothing:</strong> Warm clothing recommended (centre can be cold)</li>
+                                    <li><strong>Hydration:</strong> Bring water bottle for after climbing</li>
+                                </ul>
+                                <h4>&#x1F4B0; Cost</h4>
+                                <p>&#x20AC;10 per child (group may subsidise the remainder). Confirm attendance via WhatsApp poll.</p>
+                            </div>
+                        </div>
+                    </details>
                 </div>
+
+                <!-- ============ OCTOBER ============ -->
+                <div class="schedule-month" data-aos="fade-up">
+                    <h2 class="month-title">October</h2>
+
+                    <details class="activity-item special">
+                        <summary>
+                            <span class="activity-week">Week 1</span>
+                            <span class="activity-name">&#x1F3AA; Special Outing &#x2014; Circus Visit</span>
+                            <span class="activity-type">&#x1F3DB;&#xFE0F; Visit</span>
+                        </summary>
+                        <div class="activity-detail">
+                            <div class="plan-panels">
+                                <div class="plan-panel plan-panel--good">
+                                    <div class="plan-header">&#x1F3AA; Circus Visit &#x2014; Special Weeknight Event</div>
+                                    <ul class="time-list">
+                                        <li><span class="time-label">18:30</span><span>&#x1F3AA; Meet at Circus venue. <em>Note: May be a different night than usual meeting!</em></span></li>
+                                        <li><span class="time-label">18:30&#x2013;20:45</span><span>&#x1F3AA; Circus Performance &amp; Activities. Snacks supplied.</span></li>
+                                        <li><span class="time-label">20:45</span><span>&#x1F697; Collection Time for Parents</span></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="detail-section">
+                                <h4>What to Wear</h4>
+                                <ul>
+                                    <li>Warm clothing (circus tents can be cold)</li>
+                                    <li>Comfortable shoes for walking and standing</li>
+                                </ul>
+                                <h4>&#x1F4B0; Cost</h4>
+                                <p>&#x20AC;10 per child. Confirm attendance via WhatsApp poll.</p>
+                            </div>
+                        </div>
+                    </details>
+
+                    <details class="activity-item">
+                        <summary>
+                            <span class="activity-week">Week 2</span>
+                            <span class="activity-name">Beaver Games Evening &amp; Investiture Prep</span>
+                            <span class="activity-type">&#x1F3AE; Games</span>
+                        </summary>
+                        <div class="activity-detail">
+                            <div class="plan-panels">
+                                <div class="plan-panel plan-panel--good">
+                                    <div class="plan-header">&#x1F3AE; Games Evening &amp; Investiture Preparation</div>
+                                    <ul class="time-list">
+                                        <li><span class="time-label">18:30</span><span>&#x1F64F; Prayer &amp; Roll Call</span></li>
+                                        <li><span class="time-label">18:35&#x2013;18:50</span><span>&#x1F6A2; Ship to Shore &amp; Beep Beep Game</span></li>
+                                        <li><span class="time-label">18:50&#x2013;19:15</span><span>&#x1F3C6; Investiture Preparation &#x2014; Baden Powell video &amp; dividing into lodges</span></li>
+                                        <li><span class="time-label">19:15&#x2013;19:30</span><span>&#x1F525; Tea Bag Rocket Experiment</span></li>
+                                        <li><span class="time-label">19:30&#x2013;19:50</span><span>&#x1F914; Two Truths and One Lie Game</span></li>
+                                        <li><span class="time-label">19:50&#x2013;20:00</span><span>&#x1F4AD; Quiet Time: How is Everyone Doing?</span></li>
+                                        <li><span class="time-label">20:00</span><span>&#x1F44B; Home Time with Beaver Lodge Clap</span></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="detail-section">
+                                <h4>&#x1F4E3; Beep Beep Game</h4>
+                                <ul>
+                                    <li><strong>Setup:</strong> Beavers get into pairs and decide on a secret signal only they know</li>
+                                    <li><strong>Play:</strong> One partner is blindfolded and spun around</li>
+                                    <li><strong>Challenge:</strong> The seeing partner calls out their secret signal</li>
+                                    <li><strong>Goal:</strong> The blindfolded partner must find their partner using only sound</li>
+                                </ul>
+                                <h4>&#x1F525; Tea Bag Rocket Experiment</h4>
+                                <p><strong>Materials:</strong> Funnel tea bags, square silver tin foil pieces, lighter (adult use only)</p>
+                                <ol>
+                                    <li>Snip both ends of tea bags and remove all tea leaves</li>
+                                    <li>Place the empty tea bag upright on tin foil</li>
+                                    <li>Light the top &#x2014; as it burns down, the ash floats to the ceiling!</li>
+                                    <li>Each Beaver gets their own turn</li>
+                                </ol>
+                                <h4>&#x1F914; Two Truths and One Lie</h4>
+                                <p>Beavers sit in a circle. Each shares 2 truths and 1 lie about themselves &#x2014; the group votes on which is the lie.</p>
+                            </div>
+                        </div>
+                    </details>
+
+                    <details class="activity-item special">
+                        <summary>
+                            <span class="activity-week">Week 3</span>
+                            <span class="activity-name">&#x1F383; Halloween Party (with magician)</span>
+                            <span class="activity-type">&#x1F389; Event</span>
+                        </summary>
+                        <div class="activity-detail">
+                            <div class="plan-panels">
+                                <div class="plan-panel plan-panel--good">
+                                    <div class="plan-header">&#x1F383; Halloween Party &amp; Spooky Fun Night!</div>
+                                    <ul class="time-list">
+                                        <li><span class="time-label">18:30</span><span>&#x1F3AD; Halloween costume parade</span></li>
+                                        <li><span class="time-label">18:45</span><span>&#x1F383; Halloween games and activities</span></li>
+                                        <li><span class="time-label">19:00</span><span>&#x1F3AA; Magic show (surprise &#x2014; don't tell the kids!)</span></li>
+                                        <li><span class="time-label">19:30</span><span>&#x1F36C; Indoor trick-or-treating around the Scout Hall</span></li>
+                                        <li><span class="time-label">19:45</span><span>&#x1F57A; Halloween disco with spooky music</span></li>
+                                        <li><span class="time-label">20:00</span><span>&#x1F44B; Collection &#x2014; Happy Halloween!</span></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="detail-section">
+                                <h4>What to Bring</h4>
+                                <ul>
+                                    <li>&#x1F3AD; <strong>Halloween costume/fancy dress</strong></li>
+                                    <li>&#x1F964; <strong>Labelled drink bottle</strong></li>
+                                    <li>&#x1F36A; <strong>A small snack</strong></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </details>
+
+                    <details class="activity-item no-meeting">
+                        <summary>
+                            <span class="activity-week">Week 4</span>
+                            <span class="activity-name">Mid-term Break &#x2014; No Meeting</span>
+                            <span class="activity-type">&#x2014;</span>
+                        </summary>
+                        <div class="activity-detail"><p>No meeting during mid-term break.</p></div>
+                    </details>
+                </div>
+
+                <!-- ============ NOVEMBER ============ -->
+                <div class="schedule-month" data-aos="fade-up">
+                    <h2 class="month-title">November</h2>
+
+                    <details class="activity-item special">
+                        <summary>
+                            <span class="activity-week">Week 1</span>
+                            <span class="activity-name">&#x1F6A2; Limerick Marine Search &amp; Rescue Visit</span>
+                            <span class="activity-type">&#x1F3DB;&#xFE0F; Visit</span>
+                        </summary>
+                        <div class="activity-detail">
+                            <div class="plan-panels">
+                                <div class="plan-panel plan-panel--good">
+                                    <div class="plan-header">&#x1F6A2; Marine Search and Rescue Visit</div>
+                                    <ul class="time-list">
+                                        <li><span class="time-label">19:00</span><span>&#x1F697; Meet directly at Limerick Marine Search and Rescue (NOT the Scout Hall). <em>Bring warm clothing, water bottle.</em></span></li>
+                                        <li><span class="time-label">19:00&#x2013;20:15</span><span>&#x1F6DF; Guided tour of the marine rescue station and equipment</span></li>
+                                        <li><span class="time-label">20:15</span><span>&#x1F697; Collection time for parents at the venue</span></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="detail-section">
+                                <h4>&#x1F6DF; What Beavers Will Learn</h4>
+                                <ul>
+                                    <li>&#x1F6A4; Rescue boats and equipment</li>
+                                    <li>&#x1F4A7; Water safety lessons</li>
+                                    <li>&#x1F468;&#x200D;&#x1F692; How volunteers help save lives</li>
+                                    <li>&#x1F4E1; How rescue teams coordinate during emergencies</li>
+                                </ul>
+                                <h4>What to Bring</h4>
+                                <ul>
+                                    <li>&#x1F9E5; Warm jacket (cold near water)</li>
+                                    <li>&#x1F45F; Non-slip shoes</li>
+                                    <li>&#x1F4A7; Water bottle</li>
+                                    <li>&#x1F914; Questions about water safety!</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </details>
+
+                    <details class="activity-item special">
+                        <summary>
+                            <span class="activity-week">Weekend</span>
+                            <span class="activity-name">&#x1F46E; Garda Station Visit (Saturday)</span>
+                            <span class="activity-type">&#x1F3DB;&#xFE0F; Visit</span>
+                        </summary>
+                        <div class="activity-detail">
+                            <div class="plan-panels">
+                                <div class="plan-panel plan-panel--good">
+                                    <div class="plan-header">&#x1F46E;&#x200D;&#x2642;&#xFE0F; Henry Street Garda Station Tour</div>
+                                    <ul class="time-list">
+                                        <li><span class="time-label">11:00</span><span>&#x1F697; Meet outside Henry Street Garda Station</span></li>
+                                        <li><span class="time-label">11:00&#x2013;12:00</span><span>&#x1F694; Guided tour &#x2014; see inside a real Garda station, try on a Garda hat!</span></li>
+                                        <li><span class="time-label">12:00</span><span>&#x1F697; Collection time</span></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="detail-section">
+                                <h4>What Beavers Will Learn</h4>
+                                <ul>
+                                    <li>&#x1F694; Police vehicles and equipment</li>
+                                    <li>&#x1F50D; Community policing &#x2014; how Gard&#xE1;i keep us safe</li>
+                                    <li>&#x1F46E;&#x200D;&#x2642;&#xFE0F; The different jobs Gard&#xE1;i do every day</li>
+                                    <li>&#x1F6A8; Emergency response</li>
+                                </ul>
+                                <h4>What to Bring</h4>
+                                <ul>
+                                    <li>&#x1F9E5; Warm coat (waiting outside)</li>
+                                    <li>&#x1F9E2; Hat and gloves</li>
+                                    <li>&#x1F4DD; Questions for the Gard&#xE1;i!</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </details>
+
+                    <details class="activity-item">
+                        <summary>
+                            <span class="activity-week">Week 2</span>
+                            <span class="activity-name">Bingo Night</span>
+                            <span class="activity-type">&#x1F3AE; Games</span>
+                        </summary>
+                        <div class="activity-detail">
+                            <div class="plan-panels">
+                                <div class="plan-panel plan-panel--good">
+                                    <div class="plan-header">&#x1F50D; Bingo Night</div>
+                                    <ul class="time-list">
+                                        <li><span class="time-label">18:30</span><span>&#x1F64F; Roll Call</span></li>
+                                        <li><span class="time-label">18:35&#x2013;19:35</span><span>&#x1F4DD; Beaver Scout Law Game (from Week 1 backup)</span></li>
+                                        <li><span class="time-label">19:35&#x2013;19:55</span><span>&#x1F50D; Bingo &#x2014; fun rounds with prizes!</span></li>
+                                        <li><span class="time-label">19:55&#x2013;20:00</span><span>&#x1F389; Prize giving &amp; wrap-up</span></li>
+                                        <li><span class="time-label">20:00</span><span>&#x1F44B; Home Time with Beaver Lodge Clap</span></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="detail-section">
+                                <h4>What to Bring</h4>
+                                <ul><li>A pen or pencil</li></ul>
+                            </div>
+                        </div>
+                    </details>
+
+                    <details class="activity-item">
+                        <summary>
+                            <span class="activity-week">Week 3</span>
+                            <span class="activity-name">Urban Orienteering &#x2014; Pirate Treasure Hunt</span>
+                            <span class="activity-type">&#x1F97E; Outdoor</span>
+                        </summary>
+                        <div class="activity-detail">
+                            <div class="plan-panels plan-panels--dual">
+                                <div class="plan-panel plan-panel--good">
+                                    <div class="plan-header">&#x1F324;&#xFE0F; Plan A: Pirate Treasure Hunt!</div>
+                                    <ul class="time-list">
+                                        <li><span class="time-label">18:30</span><span>&#x1F3F4;&#x200D;&#x2620;&#xFE0F; Pirate Treasure Hunt &#x2014; Urban Orienteering. Each group needs a phone/camera for proof photos.</span></li>
+                                        <li><span class="time-label">18:35&#x2013;19:45</span><span>&#x1F9ED; Navigate to all treasure locations on the map. Groups of 3&#x2013;4 with 1 leader. Minimal help &#x2014; let them navigate!</span></li>
+                                        <li><span class="time-label">19:45</span><span>&#x1F309; Final meeting point: Bridge steps</span></li>
+                                        <li><span class="time-label">20:00</span><span>&#x1F6B6;&#x200D;&#x2642;&#xFE0F; Walk home together to Scout Hall</span></li>
+                                    </ul>
+                                </div>
+                                <div class="plan-panel plan-panel--bad">
+                                    <div class="plan-header">&#x1F327;&#xFE0F; Plan B: Indoor Tent Pitching &amp; Games</div>
+                                    <ul class="time-list">
+                                        <li><span class="time-label">18:30&#x2013;18:45</span><span>&#x1F6A2; Ship to Shore Game</span></li>
+                                        <li><span class="time-label">18:45&#x2013;19:30</span><span>&#x26FA; Tent Pitching in the Hall</span></li>
+                                        <li><span class="time-label">19:30&#x2013;19:50</span><span>&#x1F3AE; Indoor Camping Games</span></li>
+                                        <li><span class="time-label">19:50&#x2013;20:00</span><span>&#x1F4E6; Pack away tents</span></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="detail-section">
+                                <h4>&#x1F3F4;&#x200D;&#x2620;&#xFE0F; How the Treasure Hunt Works</h4>
+                                <ul>
+                                    <li><strong>Groups:</strong> 3&#x2013;4 Beavers with 1 leader each</li>
+                                    <li><strong>Map:</strong> Each group gets a treasure map with marked locations</li>
+                                    <li><strong>Navigation:</strong> Groups navigate with minimal help</li>
+                                    <li><strong>Proof:</strong> Leaders take photos at each checkpoint</li>
+                                    <li><strong>Meeting point:</strong> All groups meet at a final location</li>
+                                </ul>
+                                <h4>What to Bring (Outdoor)</h4>
+                                <ul>
+                                    <li>Warm, waterproof clothing</li>
+                                    <li>Hat and gloves</li>
+                                    <li>A snack for energy</li>
+                                    <li>Print the treasure map in advance</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </details>
+
+                    <details class="activity-item">
+                        <summary>
+                            <span class="activity-week">Week 4</span>
+                            <span class="activity-name">Investiture Preparation</span>
+                            <span class="activity-type">&#x1F9ED; Skills</span>
+                        </summary>
+                        <div class="activity-detail">
+                            <div class="detail-section">
+                                <h4>What's Involved</h4>
+                                <p>Preparing new Beavers for their investiture &#x2014; practising the Beaver Scout Promise, learning about the uniform, understanding what it means to be a Beaver Scout.</p>
+                                <h4>&#x1F91D; The Beaver Promise</h4>
+                                <blockquote style="border-left: 4px solid var(--color-beavers); padding: 0.8rem 1.2rem; margin: 1rem 0; font-style: italic;">
+                                    <strong>&#x201C;I promise to do my best,<br>To be a good Beaver Scout,<br>And to be kind and helpful.&#x201D;</strong>
+                                </blockquote>
+                            </div>
+                        </div>
+                    </details>
+
+                    <details class="activity-item special">
+                        <summary>
+                            <span class="activity-week">Weekend</span>
+                            <span class="activity-name">&#x1F3C6; Investiture Ceremony (Saturday)</span>
+                            <span class="activity-type">&#x1F389; Event</span>
+                        </summary>
+                        <div class="activity-detail">
+                            <div class="detail-section">
+                                <h4>About the Investiture</h4>
+                                <p>New Beavers recite the Beaver Scout Promise and receive their neckerchiefs. Parents are invited to attend. Full uniform required for all Beavers.</p>
+                                <h4>What to Bring</h4>
+                                <ul>
+                                    <li>Full Beaver Scout uniform</li>
+                                    <li>New Beavers: bring neckerchief to receive</li>
+                                    <li>Invite parents/family to watch!</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- ============ DECEMBER ============ -->
+                <div class="schedule-month" data-aos="fade-up">
+                    <h2 class="month-title">December</h2>
+
+                    <details class="activity-item">
+                        <summary>
+                            <span class="activity-week">Week 1</span>
+                            <span class="activity-name">Christmas Art Class &#x2014; Decoration Painting</span>
+                            <span class="activity-type">&#x1F3A8; Craft</span>
+                        </summary>
+                        <div class="activity-detail">
+                            <div class="plan-panels">
+                                <div class="plan-panel plan-panel--good">
+                                    <div class="plan-header">&#x1F3A8; Christmas Decoration Art Class</div>
+                                    <ul class="time-list">
+                                        <li><span class="time-label">18:30</span><span>&#x1F64F; Roll Call &amp; Introduction</span></li>
+                                        <li><span class="time-label">18:35&#x2013;19:50</span><span>&#x1F3A8; Christmas Decoration Painting. <em>Wear old clothes &#x2014; things might get messy!</em></span></li>
+                                        <li><span class="time-label">19:50&#x2013;20:00</span><span>&#x1F9F9; Clean up and display artwork</span></li>
+                                        <li><span class="time-label">20:00</span><span>&#x1F44B; Home Time</span></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="detail-section">
+                                <h4>About the Art Class</h4>
+                                <p>A leader with art skills runs a special session where Beavers paint their own Christmas decorations to take home!</p>
+                                <h4>What to Wear &amp; Bring</h4>
+                                <ul>
+                                    <li><strong>Old clothes!</strong> Paint can be messy</li>
+                                    <li>Optional: Apron or old shirt</li>
+                                    <li>All art supplies provided by leaders</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </details>
+
+                    <details class="activity-item special">
+                        <summary>
+                            <span class="activity-week">Weekend</span>
+                            <span class="activity-name">&#x1F384; Carol Singing at Local Nursing Home</span>
+                            <span class="activity-type">&#x1F389; Event</span>
+                        </summary>
+                        <div class="activity-detail">
+                            <div class="plan-panels">
+                                <div class="plan-panel plan-panel--good">
+                                    <div class="plan-header">&#x1F384; Carol Singing &#x2014; Community Service</div>
+                                    <ul class="time-list">
+                                        <li><span class="time-label">13:45</span><span>&#x1F697; Meeting time at Nursing Home. Parents to bring/meet/collect at venue.</span></li>
+                                        <li><span class="time-label">14:00&#x2013;15:00</span><span>&#x1F3B5; Carol Singing for the residents</span></li>
+                                        <li><span class="time-label">15:00</span><span>&#x1F697; Collection time</span></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="detail-section">
+                                <h4>What Beavers Learn</h4>
+                                <ul>
+                                    <li>&#x1F3B5; Community service &#x2014; small acts of kindness make a big difference</li>
+                                    <li>&#x1F49D; Compassion &#x2014; bringing joy to elderly residents</li>
+                                    <li>&#x1F3B6; Music and performance &#x2014; singing together as a group</li>
+                                    <li>&#x1F91D; Intergenerational connections</li>
+                                </ul>
+                                <h4>Preparation</h4>
+                                <ul>
+                                    <li>Practice carols at home before the event</li>
+                                    <li>Optional: Make Christmas cards at home for the residents</li>
+                                    <li>Suggested carols: Jingle Bells, Rudolph, We Wish You a Merry Christmas, Silent Night</li>
+                                </ul>
+                                <h4>Dress Code</h4>
+                                <p>Neckerchief only (no full uniform). Santa jumper and hat if you have one!</p>
+                            </div>
+                        </div>
+                    </details>
+
+                    <details class="activity-item">
+                        <summary>
+                            <span class="activity-week">Week 2</span>
+                            <span class="activity-name">Board Game Night &#x2014; Bring Your Favourites!</span>
+                            <span class="activity-type">&#x1F3AE; Games</span>
+                        </summary>
+                        <div class="activity-detail">
+                            <div class="plan-panels">
+                                <div class="plan-panel plan-panel--good">
+                                    <div class="plan-header">&#x1F3B2; Festive Board Game Night</div>
+                                    <ul class="time-list">
+                                        <li><span class="time-label">18:30&#x2013;18:45</span><span>&#x1F384; Arrival and Lodge Time</span></li>
+                                        <li><span class="time-label">18:45&#x2013;19:50</span><span>&#x1F3B2; Board Game Session</span></li>
+                                        <li><span class="time-label">19:50&#x2013;20:00</span><span>&#x1F384; Closing Assembly</span></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="detail-section">
+                                <h4>What This Develops</h4>
+                                <ul>
+                                    <li>&#x1F3AF; Strategic thinking &#x2014; planning moves</li>
+                                    <li>&#x1F91D; Social skills &#x2014; taking turns, playing fairly</li>
+                                    <li>&#x1F60A; Sportsmanship &#x2014; winning and losing gracefully</li>
+                                    <li>&#x1F4D6; Rule following</li>
+                                </ul>
+                                <h4>What to Bring</h4>
+                                <ul>
+                                    <li>&#x1F3B2; 1&#x2013;2 favourite board games (labelled with name!)</li>
+                                    <li>&#x1F384; Christmas jumper!</li>
+                                    <li>&#x1F53A; Neckerchief</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </details>
+
+                    <details class="activity-item special">
+                        <summary>
+                            <span class="activity-week">Week 3</span>
+                            <span class="activity-name">&#x1F385; Christmas Pyjama Party &amp; Movie Night</span>
+                            <span class="activity-type">&#x1F389; Event</span>
+                        </summary>
+                        <div class="activity-detail">
+                            <div class="plan-panels">
+                                <div class="plan-panel plan-panel--good">
+                                    <div class="plan-header">&#x1F385; Christmas Pyjama Party!</div>
+                                    <ul class="time-list">
+                                        <li><span class="time-label">18:30&#x2013;18:45</span><span>&#x1F384; Arrival and Pyjama Parade</span></li>
+                                        <li><span class="time-label">18:45&#x2013;20:30</span><span>&#x1F3AC; Christmas Movie (chosen by poll). Popcorn &amp; drinks provided!</span></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="detail-section">
+                                <h4>What to Wear</h4>
+                                <ul>
+                                    <li>&#x1F385; Christmas pyjamas</li>
+                                    <li>&#x1F97C; Dressing gown</li>
+                                    <li>&#x1F97F; Slippers</li>
+                                    <li>&#x1F53A; Neckerchief too!</li>
+                                </ul>
+                                <h4>Movie Selection Ideas</h4>
+                                <p>Put up a poll for Beavers to vote. Good options:</p>
+                                <ul>
+                                    <li>&#x1F385; Arthur Christmas</li>
+                                    <li>&#x1F682; Polar Express</li>
+                                    <li>&#x1F381; Klaus</li>
+                                </ul>
+                                <p><strong>Note:</strong> This meeting runs slightly longer (to 8:30pm) to fit the movie.</p>
+                            </div>
+                        </div>
+                    </details>
+
+                    <details class="activity-item no-meeting">
+                        <summary>
+                            <span class="activity-week">Weeks 4&#x2013;5</span>
+                            <span class="activity-name">Christmas Holidays &#x2014; No Meetings</span>
+                            <span class="activity-type">&#x2014;</span>
+                        </summary>
+                        <div class="activity-detail"><p>Christmas break &#x2014; typically 2&#x2013;3 weeks off.</p></div>
+                    </details>
+                </div>
+
+                <!-- ============ JANUARY ============ -->
+                <div class="schedule-month" data-aos="fade-up">
+                    <h2 class="month-title">January</h2>
+
+                    <details class="activity-item">
+                        <summary>
+                            <span class="activity-week">Week 2</span>
+                            <span class="activity-name">Beaver Games Night (WDS Games Book)</span>
+                            <span class="activity-type">&#x1F3AE; Games</span>
+                        </summary>
+                        <div class="activity-detail">
+                            <div class="plan-panels">
+                                <div class="plan-panel plan-panel--good">
+                                    <div class="plan-header">&#x1F3AE; Beaver Scout Games Night &#x2014; Welcome Back!</div>
+                                    <ul class="time-list">
+                                        <li><span class="time-label">18:30&#x2013;18:40</span><span>&#x1F64F; Prayer, Roll Call &amp; Welcome Back!</span></li>
+                                        <li><span class="time-label">18:40&#x2013;19:00</span><span>&#x1F6A2; Ship to Shore &amp; Warm-Up Games</span></li>
+                                        <li><span class="time-label">19:00&#x2013;19:45</span><span>&#x1F3AE; Beaver Scout Games from the <a href="https://www.tredegarscouts.co.uk/wp-content/uploads/2016/02/WDS-Beaver-Games-Book.pdf" target="_blank" rel="noopener noreferrer">WDS Beaver Games Book</a></span></li>
+                                        <li><span class="time-label">19:45&#x2013;19:55</span><span>&#x1F4AD; Circle Time: New Year Goals &#x2014; what do you want to learn in Beavers this year?</span></li>
+                                        <li><span class="time-label">19:55&#x2013;20:00</span><span>&#x1F44B; Home Time with Beaver Lodge Clap</span></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="detail-section">
+                                <h4>Suggested Games</h4>
+                                <ul>
+                                    <li>&#x1F6A2; Ship to Shore &#x2014; movement game with commands</li>
+                                    <li>&#x1F43B; Bear Hunt &#x2014; action game with storytelling</li>
+                                    <li>&#x1F3C3; Stuck in the Mud &#x2014; tag game with teamwork</li>
+                                    <li>&#x1F981; Sleeping Lions &#x2014; calm-down game</li>
+                                    <li>&#x1F388; Balloon Games &#x2014; team challenges</li>
+                                    <li>&#x1F534; Traffic Lights &#x2014; listening and movement</li>
+                                </ul>
+                                <h4>What to Bring</h4>
+                                <ul>
+                                    <li>Comfortable clothes &amp; trainers for running</li>
+                                    <li>Water bottle</li>
+                                    <li>Neckerchief</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </details>
+
+                    <details class="activity-item">
+                        <summary>
+                            <span class="activity-week">Week 3</span>
+                            <span class="activity-name">Mini Bridges &amp; Towers + Knot Tying</span>
+                            <span class="activity-type">&#x1F9ED; Skills</span>
+                        </summary>
+                        <div class="activity-detail">
+                            <div class="plan-panels">
+                                <div class="plan-panel plan-panel--good">
+                                    <div class="plan-header">&#x1F309; Building &amp; Knots Night</div>
+                                    <ul class="time-list">
+                                        <li><span class="time-label">18:30&#x2013;18:40</span><span>&#x1F64F; Prayer, Roll Call &amp; Welcome</span></li>
+                                        <li><span class="time-label">18:40&#x2013;19:00</span><span>&#x1F6A2; Ship to Shore &amp; Warm-Up Games</span></li>
+                                        <li><span class="time-label">19:00&#x2013;19:30</span><span>&#x1F309; Mini Bridges &amp; Towers &#x2014; using spaghetti and marshmallows!</span></li>
+                                        <li><span class="time-label">19:30&#x2013;19:50</span><span>&#x1FAA2; Learn to Tie Knots</span></li>
+                                        <li><span class="time-label">19:50&#x2013;20:00</span><span>&#x1F44B; Home Time</span></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="detail-section">
+                                <h4>&#x1F309; About Mini Bridges &amp; Towers</h4>
+                                <p>Using spaghetti and marshmallows to build structures. Teaches engineering basics, teamwork, problem solving, and creativity.</p>
+                                <h4>&#x1FAA2; About Knot Tying</h4>
+                                <p>Essential scouting skill! Practise basic knots useful for camping and everyday life.</p>
+                                <h4>What to Bring</h4>
+                                <ul>
+                                    <li>&#x1FAA2; Length of rope (~60cm) for knot practice</li>
+                                    <li>&#x1F35D; Uncooked spaghetti</li>
+                                    <li>&#x1F36C; Marshmallows</li>
+                                    <li>&#x1F53A; Neckerchief &amp; water bottle</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </details>
+
+                    <details class="activity-item">
+                        <summary>
+                            <span class="activity-week">Week 4</span>
+                            <span class="activity-name">St. Brigid's Crosses</span>
+                            <span class="activity-type">&#x1F3A8; Craft</span>
+                        </summary>
+                        <div class="activity-detail">
+                            <div class="plan-panels">
+                                <div class="plan-panel plan-panel--good">
+                                    <div class="plan-header">&#x271D;&#xFE0F; St. Brigid's Cross Making</div>
+                                    <ul class="time-list">
+                                        <li><span class="time-label">18:30&#x2013;18:40</span><span>&#x1F64F; Prayer, Roll Call &amp; Welcome</span></li>
+                                        <li><span class="time-label">18:40&#x2013;18:55</span><span>&#x1F6A2; Ship to Shore &amp; Warm-Up Games</span></li>
+                                        <li><span class="time-label">18:55&#x2013;19:10</span><span>&#x1F4D6; Story of St. Brigid</span></li>
+                                        <li><span class="time-label">19:10&#x2013;19:50</span><span>&#x271D;&#xFE0F; Making St. Brigid's Crosses!</span></li>
+                                        <li><span class="time-label">19:50&#x2013;20:00</span><span>&#x1F44B; Home Time</span></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="detail-section">
+                                <h4>About St. Brigid's Crosses</h4>
+                                <p>St. Brigid's Day is February 1st. These crosses are traditionally hung in homes for protection and blessing. Beavers learn Irish heritage, craft skills, and storytelling.</p>
+                                <h4>Video Tutorial</h4>
+                                <div class="video-embed">
+                                    <iframe src="https://www.youtube.com/embed/1SjsAPLx0jg?si=Kkht2y5MSxNgFnA6" title="How to Make a St. Brigid's Cross" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                </div>
+                                <h4>What to Bring</h4>
+                                <p>Nothing &#x2014; all materials (rushes/pipe cleaners) supplied by leaders!</p>
+                            </div>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- ============ FEBRUARY ============ -->
+                <div class="schedule-month" data-aos="fade-up">
+                    <h2 class="month-title">February</h2>
+
+                    <details class="activity-item">
+                        <summary>
+                            <span class="activity-week">Week 1</span>
+                            <span class="activity-name">Parachute Making</span>
+                            <span class="activity-type">&#x1F3A8; Craft</span>
+                        </summary>
+                        <div class="activity-detail">
+                            <div class="plan-panels">
+                                <div class="plan-panel plan-panel--good">
+                                    <div class="plan-header">&#x1FA82; Parachute Making &#x2014; Let's Take Flight!</div>
+                                    <ul class="time-list">
+                                        <li><span class="time-label">18:30&#x2013;18:40</span><span>&#x1F64F; Prayer, Roll Call &amp; Introduction</span></li>
+                                        <li><span class="time-label">18:40&#x2013;18:55</span><span>&#x1F6A2; Ship to Shore &amp; Warm-Up</span></li>
+                                        <li><span class="time-label">18:55&#x2013;19:10</span><span>&#x1F4D6; How Parachutes Work &#x2014; air resistance &amp; gravity</span></li>
+                                        <li><span class="time-label">19:10&#x2013;19:45</span><span>&#x1FA82; Making Our Parachutes &#x2014; plastic bags, thread &amp; toy soldiers</span></li>
+                                        <li><span class="time-label">19:45&#x2013;19:55</span><span>&#x1F3AF; Test Drops &amp; Competitions! Whose floats longest?</span></li>
+                                        <li><span class="time-label">19:55&#x2013;20:00</span><span>&#x1F44B; Home Time</span></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="detail-section">
+                                <h4>Video Tutorial</h4>
+                                <div class="video-embed">
+                                    <iframe src="https://www.youtube.com/embed/uA_qzmaDF_8" title="How to Make a Parachute" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                </div>
+                                <h4>What to Bring &#x2014; IMPORTANT!</h4>
+                                <ul>
+                                    <li>&#x1F9F5; Thread or string (~1 metre)</li>
+                                    <li>&#x1F6CD;&#xFE0F; Light plastic bag (sandwich bag or bread bag)</li>
+                                    <li>&#x1FA96; Small toy soldier or similar figure</li>
+                                    <li>&#x1F53A; Neckerchief &amp; water bottle</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </details>
+
+                    <details class="activity-item special">
+                        <summary>
+                            <span class="activity-week">Week 2</span>
+                            <span class="activity-name">&#x1F52A; Knife Safety &amp; Bushcraft (guest instructor)</span>
+                            <span class="activity-type">&#x1F9ED; Skills</span>
+                        </summary>
+                        <div class="activity-detail">
+                            <div class="plan-panels">
+                                <div class="plan-panel plan-panel--good">
+                                    <div class="plan-header">&#x1F52A; Knife Safety &amp; Bushcraft &#x2014; Outside!</div>
+                                    <ul class="time-list">
+                                        <li><span class="time-label">18:30&#x2013;18:40</span><span>&#x1F64F; Prayer, Roll Call &amp; Introduction</span></li>
+                                        <li><span class="time-label">18:40&#x2013;18:50</span><span>&#x1F9E5; Get Ready &amp; Move Outside to lean-to shelter</span></li>
+                                        <li><span class="time-label">18:50&#x2013;19:10</span><span>&#x1F52A; Knife Safety Introduction &#x2014; rules of safe handling</span></li>
+                                        <li><span class="time-label">19:10&#x2013;19:45</span><span>&#x1F332; Bushcraft Demonstration &#x2014; whittling, fire prep</span></li>
+                                        <li><span class="time-label">19:45&#x2013;19:55</span><span>&#x2615; Hot Chocolate &amp; Warm Up inside</span></li>
+                                        <li><span class="time-label">19:55&#x2013;20:00</span><span>&#x1F44B; Home Time</span></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="detail-section">
+                                <h4>What Beavers Learn</h4>
+                                <ul>
+                                    <li>&#x1F6E1;&#xFE0F; Safety First &#x2014; golden rules of knife handling</li>
+                                    <li>&#x1F332; Bushcraft Skills &#x2014; intro to whittling and woodcraft</li>
+                                    <li>&#x1F525; Fire Preparation &#x2014; safely prepare kindling</li>
+                                    <li>&#x1F3D5;&#xFE0F; Outdoor confidence</li>
+                                </ul>
+                                <h4>&#x26A0;&#xFE0F; We'll Be OUTSIDE!</h4>
+                                <p>Please dress appropriately: warm coat, hat, gloves, sturdy shoes.</p>
+                            </div>
+                        </div>
+                    </details>
+
+                    <details class="activity-item">
+                        <summary>
+                            <span class="activity-week">Week 3</span>
+                            <span class="activity-name">Pancake Tuesday &#x2014; Cooking Outside!</span>
+                            <span class="activity-type">&#x1F3A8; Craft</span>
+                        </summary>
+                        <div class="activity-detail">
+                            <div class="plan-panels">
+                                <div class="plan-panel plan-panel--good">
+                                    <div class="plan-header">&#x1F95E; Pancake Tuesday at the Lean-to!</div>
+                                    <ul class="time-list">
+                                        <li><span class="time-label">18:30&#x2013;18:40</span><span>&#x1F64F; Prayer, Roll Call &amp; Welcome &#x2014; Happy Pancake Tuesday!</span></li>
+                                        <li><span class="time-label">18:40&#x2013;18:50</span><span>&#x1F9E5; Get Ready &amp; Move Outside</span></li>
+                                        <li><span class="time-label">18:50&#x2013;19:40</span><span>&#x1F525; Pancake Frying &amp; Eating! Toppings: lemon &amp; sugar, Nutella, fruit. Flipping challenge! &#x1F3C6;</span></li>
+                                        <li><span class="time-label">19:40&#x2013;19:50</span><span>&#x2615; Hot Chocolate &amp; Clean Up</span></li>
+                                        <li><span class="time-label">19:50&#x2013;20:00</span><span>&#x1F44B; Home Time</span></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="detail-section">
+                                <h4>&#x26A0;&#xFE0F; We'll Be OUTSIDE!</h4>
+                                <p>Frying pancakes at the lean-to shelter. Dress warmly: coat, hat, gloves, scarf, sturdy shoes.</p>
+                            </div>
+                        </div>
+                    </details>
+
+                    <details class="activity-item no-meeting">
+                        <summary>
+                            <span class="activity-week">Week 4</span>
+                            <span class="activity-name">Mid-term Break &#x2014; No Meeting</span>
+                            <span class="activity-type">&#x2014;</span>
+                        </summary>
+                        <div class="activity-detail"><p>No meeting during mid-term break.</p></div>
+                    </details>
+                </div>
+
+                <!-- ============ MARCH ============ -->
+                <div class="schedule-month" data-aos="fade-up">
+                    <h2 class="month-title">March</h2>
+
+                    <details class="activity-item">
+                        <summary>
+                            <span class="activity-week">Week 1</span>
+                            <span class="activity-name">Outdoor Hike (weather permitting)</span>
+                            <span class="activity-type">&#x1F97E; Outdoor</span>
+                        </summary>
+                        <div class="activity-detail">
+                            <div class="detail-section">
+                                <h4>Session Plan</h4>
+                                <p>If the weather is good &#x2014; surprise hike! Take advantage of unexpected sunshine and get outside. Route: local trails along the river/fields (1&#x2013;1.5 hours). Always have a backup indoor activity ready.</p>
+                                <h4>What to Bring</h4>
+                                <ul>
+                                    <li>Warm &amp; waterproof clothing</li>
+                                    <li>Sturdy shoes/boots</li>
+                                    <li>Water bottle &amp; snack</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </details>
+
+                    <details class="activity-item special">
+                        <summary>
+                            <span class="activity-week">Week 2</span>
+                            <span class="activity-name">&#x1F3BD; Uniform Night &#x2014; Investiture &amp; Compass Making</span>
+                            <span class="activity-type">&#x1F389; Event</span>
+                        </summary>
+                        <div class="activity-detail">
+                            <div class="plan-panels">
+                                <div class="plan-panel plan-panel--good">
+                                    <div class="plan-header">&#x1F3BD; Investiture &amp; Compass Making</div>
+                                    <ul class="time-list">
+                                        <li><span class="time-label">18:30&#x2013;18:45</span><span>&#x1F3BD; Opening &amp; Welcome &#x2014; full uniform night</span></li>
+                                        <li><span class="time-label">18:45&#x2013;19:15</span><span>&#x1F91D; Investiture Ceremony for New Beavers</span></li>
+                                        <li><span class="time-label">19:15&#x2013;19:50</span><span>&#x1F9ED; Compass Making Activity</span></li>
+                                        <li><span class="time-label">19:50&#x2013;20:00</span><span>&#x1F44B; Closing &amp; Home Time</span></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="detail-section">
+                                <h4>&#x1F9ED; Compass Making</h4>
+                                <div class="video-embed">
+                                    <iframe src="https://www.youtube.com/embed/yNrpxAv8SHQ" title="How to Make a Compass" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                </div>
+                                <p><strong>Materials (bring if you can):</strong> Magnet, paper clip, cork, small bowl of water (provided).</p>
+                                <ol>
+                                    <li>Magnetize the paper clip (rub along magnet 20&#x2013;30 times)</li>
+                                    <li>Cut a thin slice of cork so it floats flat</li>
+                                    <li>Float the cork on water</li>
+                                    <li>Place magnetized paper clip on cork</li>
+                                    <li>Watch it point north!</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </details>
+
+                    <details class="activity-item special">
+                        <summary>
+                            <span class="activity-week">March 17</span>
+                            <span class="activity-name">&#x2618;&#xFE0F; St. Patrick's Day &#x2014; Optional Group Mass &amp; Parade</span>
+                            <span class="activity-type">&#x1F389; Event</span>
+                        </summary>
+                        <div class="activity-detail">
+                            <div class="plan-panels">
+                                <div class="plan-panel plan-panel--good">
+                                    <div class="plan-header">&#x2618;&#xFE0F; St. Patrick's Day</div>
+                                    <ul class="time-list">
+                                        <li><span class="time-label">09:15</span><span>&#x26EA; (Optional) Meet at local church for group mass</span></li>
+                                        <li><span class="time-label">09:30&#x2013;10:30</span><span>&#x26EA; (Optional) Group Mass &#x2014; full &amp; correct uniform</span></li>
+                                        <li><span class="time-label">11:00</span><span>&#x1F682; <strong>Everyone meets at parade assembly point</strong> (whether or not you attended mass)</span></li>
+                                        <li><span class="time-label">11:00+</span><span>&#x1F389; St. Patrick's Day Parade!</span></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="detail-section">
+                                <h4>Important Info</h4>
+                                <ul>
+                                    <li>Mass is entirely optional</li>
+                                    <li>Full &amp; correct Beaver Scout uniform for the parade</li>
+                                    <li>Weather-dependent &#x2014; keep eye on group WhatsApp for late cancellation</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </details>
+
+                    <details class="activity-item">
+                        <summary>
+                            <span class="activity-week">Week 4</span>
+                            <span class="activity-name">Craft Night &#x2014; Vuvuzelas</span>
+                            <span class="activity-type">&#x1F3A8; Craft</span>
+                        </summary>
+                        <div class="activity-detail">
+                            <div class="plan-panels">
+                                <div class="plan-panel plan-panel--good">
+                                    <div class="plan-header">&#x1F4EF; Craft Night &#x2014; Vuvuzelas!</div>
+                                    <ul class="time-list">
+                                        <li><span class="time-label">18:30&#x2013;18:45</span><span>&#x1F3AE; Opening Game</span></li>
+                                        <li><span class="time-label">18:45&#x2013;19:00</span><span>&#x1F4FA; Watch how-to video together</span></li>
+                                        <li><span class="time-label">19:00&#x2013;19:45</span><span>&#x1F4EF; Make Vuvuzelas! Using plastic tubing, electrical tape and balloons</span></li>
+                                        <li><span class="time-label">19:45&#x2013;20:00</span><span>&#x1F3B5; Vuvuzela Parade &amp; Tidy Up</span></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="detail-section">
+                                <h4>Video Tutorial</h4>
+                                <div class="video-embed">
+                                    <iframe src="https://www.youtube-nocookie.com/embed/BfKtK1ngK1I" title="DIY Balloon Vuvuzela" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                </div>
+                                <h4>Materials (all provided)</h4>
+                                <ul>
+                                    <li>&#x1F527; Plastic tubing</li>
+                                    <li>&#x1F388; Balloons</li>
+                                    <li>&#x1F50C; Electrical tape</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </details>
+
+                    <details class="activity-item special">
+                        <summary>
+                            <span class="activity-week">Weekend</span>
+                            <span class="activity-name">County Beaver Hike (weather dependent)</span>
+                            <span class="activity-type">&#x1F97E; Outdoor</span>
+                        </summary>
+                        <div class="activity-detail">
+                            <div class="detail-section">
+                                <h4>County Beaver Event &#x2014; Woodland Hike</h4>
+                                <p>A county-wide Beaver event where colonies from across the area come together for a day hike through local woodland (e.g. Cratloe Woods). Typically 10am&#x2013;3pm.</p>
+                                <h4>What to Bring</h4>
+                                <ul>
+                                    <li>&#x1F97E; Hiking boots/sturdy shoes</li>
+                                    <li>&#x1F9E5; Warm, waterproof coat &amp; rain gear</li>
+                                    <li>&#x1F9E4; Hat and gloves</li>
+                                    <li>&#x1F392; Small backpack with packed lunch &amp; snacks</li>
+                                    <li>&#x1F4A7; Water bottle</li>
+                                    <li>&#x1F53A; Neckerchief</li>
+                                </ul>
+                                <p><strong>Note:</strong> This event is weather-dependent and may be cancelled/rescheduled. Cost: usually FREE with goodie bags.</p>
+                            </div>
+                        </div>
+                    </details>
+
+                    <details class="activity-item no-meeting">
+                        <summary>
+                            <span class="activity-week">Weeks 5&#x2013;6</span>
+                            <span class="activity-name">Easter Holidays &#x2014; No Meetings (2 weeks)</span>
+                            <span class="activity-type">&#x2014;</span>
+                        </summary>
+                        <div class="activity-detail"><p>Easter break &#x2014; typically 2 weeks off.</p></div>
+                    </details>
+                </div>
+
+                <!-- ============ APRIL ============ -->
+                <div class="schedule-month" data-aos="fade-up">
+                    <h2 class="month-title">April</h2>
+
+                    <details class="activity-item">
+                        <summary>
+                            <span class="activity-week">Week 3</span>
+                            <span class="activity-name">Scout Colouring &amp; Paper Airplane Competition</span>
+                            <span class="activity-type">&#x1F3A8; Craft</span>
+                        </summary>
+                        <div class="activity-detail">
+                            <div class="plan-panels">
+                                <div class="plan-panel plan-panel--good">
+                                    <div class="plan-header">&#x1F3A8; Colouring &amp; Paper Airplanes</div>
+                                    <ul class="time-list">
+                                        <li><span class="time-label">18:30&#x2013;18:45</span><span>&#x1F3C3; Warm-up Game</span></li>
+                                        <li><span class="time-label">18:45&#x2013;19:15</span><span>&#x1F3A8; Scout Colouring &#x2014; scout-themed sheets</span></li>
+                                        <li><span class="time-label">19:15&#x2013;19:45</span><span>&#x2708;&#xFE0F; Paper Airplane Competition &#x2014; watch tutorial, build, compete!</span></li>
+                                        <li><span class="time-label">19:45&#x2013;20:00</span><span>&#x1F3C6; Awards &amp; Tidy Up</span></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="detail-section">
+                                <h4>&#x2708;&#xFE0F; Paper Airplane Tutorial</h4>
+                                <div class="video-embed">
+                                    <iframe src="https://www.youtube.com/embed/veyZNyurlwU?si=UP-dSk2MweqURM3r" title="Paper Airplane Tutorial" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                </div>
+                                <h4>What to Bring</h4>
+                                <ul>
+                                    <li>&#x1F58D;&#xFE0F; Markers, crayons, colouring pencils</li>
+                                    <li>&#x2B50; Stickers (optional)</li>
+                                    <li>&#x2702;&#xFE0F; Scissors (optional)</li>
+                                </ul>
+                                <p><em>Paper and colouring sheets provided by leaders.</em></p>
+                                <h4>&#x1F3C6; Competition Categories</h4>
+                                <ul>
+                                    <li>&#x2708;&#xFE0F; Longest Flight</li>
+                                    <li>&#x1F3AF; Best Accuracy</li>
+                                    <li>&#x1F3A8; Best Decorated</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </details>
+
+                    <details class="activity-item special">
+                        <summary>
+                            <span class="activity-week">Week 4</span>
+                            <span class="activity-name">&#x1F97E; Long Hike (~5km trail walk)</span>
+                            <span class="activity-type">&#x1F97E; Outdoor</span>
+                        </summary>
+                        <div class="activity-detail">
+                            <div class="plan-panels">
+                                <div class="plan-panel plan-panel--good">
+                                    <div class="plan-header">&#x1F97E; Hike &#x2014; Kidstown to UL</div>
+                                    <ul class="time-list">
+                                        <li><span class="time-label">18:30</span><span>&#x1F697; Drop off at start point (e.g. Kidstown car park)</span></li>
+                                        <li><span class="time-label">18:30&#x2013;20:15</span><span>&#x1F97E; Hike to University of Limerick and back</span></li>
+                                        <li><span class="time-label">20:30</span><span>&#x1F697; Collection from start point</span></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="detail-section">
+                                <h4>What to Bring</h4>
+                                <ul>
+                                    <li>&#x1F392; Small backpack</li>
+                                    <li>&#x1F96A; Food and snacks for energy</li>
+                                    <li>&#x1F4A7; Water bottle</li>
+                                </ul>
+                                <p><strong>Note:</strong> This is a longer hike (~5km). Drop-off and collection are at the same location, not the Scout Hall.</p>
+                            </div>
+                        </div>
+                    </details>
+
+                    <details class="activity-item special">
+                        <summary>
+                            <span class="activity-week">Week 5</span>
+                            <span class="activity-name">&#x1F97E; Loop Walk &#x2014; River/Canal Trail</span>
+                            <span class="activity-type">&#x1F97E; Outdoor</span>
+                        </summary>
+                        <div class="activity-detail">
+                            <div class="plan-panels">
+                                <div class="plan-panel plan-panel--good">
+                                    <div class="plan-header">&#x1F97E; Loop Walk &#x2014; O'Brien's Bridge to Parteen Weir &amp; Back</div>
+                                    <ul class="time-list">
+                                        <li><span class="time-label">18:30</span><span>&#x1F697; Meet at the car park (e.g. local playground car park)</span></li>
+                                        <li><span class="time-label">18:30&#x2013;20:15</span><span>&#x1F97E; Loop walk along canal/river and back</span></li>
+                                        <li><span class="time-label">20:30</span><span>&#x1F697; Collection from same car park</span></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="detail-section">
+                                <h4>What to Bring</h4>
+                                <ul>
+                                    <li>&#x1F392; Small backpack</li>
+                                    <li>&#x1F96A; Snack for energy</li>
+                                    <li>&#x1F4A7; Water bottle</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- ============ MAY ============ -->
+                <div class="schedule-month" data-aos="fade-up">
+                    <h2 class="month-title">May</h2>
+
+                    <details class="activity-item">
+                        <summary>
+                            <span class="activity-week">Week 1</span>
+                            <span class="activity-name">&#x26FA; Tent Pitching Practice &#x2014; prep for overnight!</span>
+                            <span class="activity-type">&#x1F9ED; Skills</span>
+                        </summary>
+                        <div class="activity-detail">
+                            <div class="plan-panels">
+                                <div class="plan-panel plan-panel--good">
+                                    <div class="plan-header">&#x26FA; Tent Pitching Practice</div>
+                                    <ul class="time-list">
+                                        <li><span class="time-label">18:30</span><span>&#x1F4CD; Meet at Scout Hall</span></li>
+                                        <li><span class="time-label">18:30&#x2013;20:00</span><span>&#x26FA; Tent pitching practice &#x2014; getting ready for the overnight camp!</span></li>
+                                        <li><span class="time-label">20:00</span><span>&#x1F3E0; Collection from Scout Hall</span></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="detail-section">
+                                <h4>&#x1F3D5;&#xFE0F; Why We Do This</h4>
+                                <p>Practising putting up tents ahead of the overnight camp. Builds confidence, teamwork, and practical camping skills. Beavers learn to work together to set up camp properly.</p>
+                            </div>
+                        </div>
+                    </details>
+
+                    <details class="activity-item">
+                        <summary>
+                            <span class="activity-week">Week 2</span>
+                            <span class="activity-name">&#x1F5FA;&#xFE0F; Urban Orienteering Part II</span>
+                            <span class="activity-type">&#x1F97E; Outdoor</span>
+                        </summary>
+                        <div class="activity-detail">
+                            <div class="plan-panels">
+                                <div class="plan-panel plan-panel--good">
+                                    <div class="plan-header">&#x1F9ED; Urban Orienteering Part II</div>
+                                    <ul class="time-list">
+                                        <li><span class="time-label">18:30</span><span>&#x1F4CD; Meet at Scout Hall</span></li>
+                                        <li><span class="time-label">18:30&#x2013;20:00</span><span>&#x1F5FA;&#xFE0F; Navigation challenge around the local area using maps and clues!</span></li>
+                                        <li><span class="time-label">20:00</span><span>&#x1F3E0; Collection from Scout Hall</span></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="detail-section">
+                                <h4>What This Develops</h4>
+                                <p>Following on from the first orienteering session &#x2014; Beavers use maps and follow clues to find checkpoints. Great for teamwork and map-reading skills.</p>
+                                <h4>&#x1F9E5; What to Wear</h4>
+                                <p>Outdoors for the full session. Coat, hat, and layers recommended.</p>
+                            </div>
+                        </div>
+                    </details>
+
+                    <details class="activity-item special">
+                        <summary>
+                            <span class="activity-week">Week 3</span>
+                            <span class="activity-name">&#x1F3D5;&#xFE0F; Overnight Camp (Friday&#x2013;Saturday)</span>
+                            <span class="activity-type">&#x1F389; Event</span>
+                        </summary>
+                        <div class="activity-detail">
+                            <div class="detail-section">
+                                <h4>&#x1F3D5;&#xFE0F; The Big One &#x2014; Overnight Camp!</h4>
+                                <p>The highlight of the Beaver year! A Friday-to-Saturday overnight camp at the Scout Hall grounds (or nearby campsite). Activities include:</p>
+                                <ul>
+                                    <li>&#x26FA; Tent pitching (Beavers do it themselves!)</li>
+                                    <li>&#x1F525; Campfire with songs and stories</li>
+                                    <li>&#x1F354; Outdoor cooking</li>
+                                    <li>&#x1F319; Night hike (short!)</li>
+                                    <li>&#x1F95E; Breakfast outdoors</li>
+                                    <li>&#x1F3AE; Games and activities</li>
+                                </ul>
+                                <p><strong>This deserves its own detailed planning page!</strong> Create a shopping list, activity schedule, parent permission forms, and packing list well in advance.</p>
+                            </div>
+                        </div>
+                    </details>
+
+                    <details class="activity-item special">
+                        <summary>
+                            <span class="activity-week">Weekend</span>
+                            <span class="activity-name">&#x1F3F0; County Beaver Event &#x2014; Full Day Outing</span>
+                            <span class="activity-type">&#x1F389; Event</span>
+                        </summary>
+                        <div class="activity-detail">
+                            <div class="plan-panels">
+                                <div class="plan-panel plan-panel--good">
+                                    <div class="plan-header">&#x1F3F0; County Beaver Event &#x2014; e.g. Bunratty Castle &amp; Folk Park</div>
+                                    <ul class="time-list">
+                                        <li><span class="time-label">09:45</span><span>&#x1F697; Meet at venue car park</span></li>
+                                        <li><span class="time-label">10:00</span><span>&#x1F3F0; Event begins &#x2014; Scavenger Hunt</span></li>
+                                        <li><span class="time-label">10:00&#x2013;15:00</span><span>&#x1F9ED; Exploring with other Beaver colonies from the county</span></li>
+                                        <li><span class="time-label">15:00</span><span>&#x1F697; Collection (option to stay longer)</span></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="detail-section">
+                                <h4>About County Events</h4>
+                                <p>County Beaver events bring colonies from across the area together for a shared day out. Great for making new friends and experiencing new places!</p>
+                                <h4>&#x1F4B0; Cost</h4>
+                                <p>Typically &#x20AC;10 per Beaver. Confirm attendance via poll.</p>
+                            </div>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- ============ JUNE ============ -->
+                <div class="schedule-month" data-aos="fade-up">
+                    <h2 class="month-title">June</h2>
+
+                    <details class="activity-item special">
+                        <summary>
+                            <span class="activity-week">Week 1</span>
+                            <span class="activity-name">&#x1F389; End of Year Party</span>
+                            <span class="activity-type">&#x1F389; Event</span>
+                        </summary>
+                        <div class="activity-detail">
+                            <div class="detail-section">
+                                <h4>&#x1F389; End of Year Celebration</h4>
+                                <p>Celebrate the end of a fantastic Beaver year! Activities might include:</p>
+                                <ul>
+                                    <li>&#x1F3C6; Badge &amp; award presentations</li>
+                                    <li>&#x1F3AE; Favourite games from the year</li>
+                                    <li>&#x1F355; Party food and treats</li>
+                                    <li>&#x1F4F8; Group photo</li>
+                                    <li>&#x1F44B; Farewell to Beavers moving up to Cubs</li>
+                                </ul>
+                                <p>Invite parents to join for the final 30 minutes!</p>
+                            </div>
+                        </div>
+                    </details>
+
+                    <details class="activity-item special">
+                        <summary>
+                            <span class="activity-week">Weekend</span>
+                            <span class="activity-name">&#x1F3D5;&#xFE0F; Group Camp (all sections)</span>
+                            <span class="activity-type">&#x1F389; Event</span>
+                        </summary>
+                        <div class="activity-detail">
+                            <div class="detail-section">
+                                <h4>&#x1F3D5;&#xFE0F; Group Camp &#x2014; All Sections Together!</h4>
+                                <p>A weekend group camp bringing Beavers, Cubs, Scouts, Ventures, and Rovers together. Typically at a local campsite. This is run at group level and brings the whole scouting family together for the final event of the year.</p>
+                                <ul>
+                                    <li>&#x26FA; Camping with your section</li>
+                                    <li>&#x1F3AE; Inter-section games and challenges</li>
+                                    <li>&#x1F525; Group campfire</li>
+                                    <li>&#x1F389; End-of-year celebrations</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </details>
+                </div>
+
             </div>
         </section>
 
@@ -347,34 +1458,34 @@
                 </div>
                 <div class="card-grid card-grid--3">
                     <div class="card" style="text-align: center; padding: var(--space-xl);">
-                        <span style="font-size: 2.5rem; display: block; margin-bottom: var(--space-sm);">🌦️</span>
+                        <span style="font-size: 2.5rem; display: block; margin-bottom: var(--space-sm);">&#x1F326;&#xFE0F;</span>
                         <h3>Plan A / Plan B</h3>
-                        <p>Always have an indoor backup. Weather is unpredictable — have a games night or craft ready to go.</p>
+                        <p>Always have an indoor backup. Weather is unpredictable &#x2014; have a games night or craft ready to go.</p>
                     </div>
                     <div class="card" style="text-align: center; padding: var(--space-xl);">
-                        <span style="font-size: 2.5rem; display: block; margin-bottom: var(--space-sm);">🔄</span>
+                        <span style="font-size: 2.5rem; display: block; margin-bottom: var(--space-sm);">&#x1F504;</span>
                         <h3>Vary the Mix</h3>
                         <p>Alternate between outdoor, craft, games, visits, and skills. Don't do two crafts in a row!</p>
                     </div>
                     <div class="card" style="text-align: center; padding: var(--space-xl);">
-                        <span style="font-size: 2.5rem; display: block; margin-bottom: var(--space-sm);">📅</span>
+                        <span style="font-size: 2.5rem; display: block; margin-bottom: var(--space-sm);">&#x1F4C5;</span>
                         <h3>Book Early</h3>
                         <p>Visits and guest speakers need lead time. Confirm special events at least 4 weeks ahead.</p>
                     </div>
                     <div class="card" style="text-align: center; padding: var(--space-xl);">
-                        <span style="font-size: 2.5rem; display: block; margin-bottom: var(--space-sm);">👨‍👩‍👧</span>
+                        <span style="font-size: 2.5rem; display: block; margin-bottom: var(--space-sm);">&#x1F468;&#x200D;&#x1F469;&#x200D;&#x1F467;</span>
                         <h3>Parent Involvement</h3>
-                        <p>Invite parents to special events — investitures, carol singing, and the end-of-year party.</p>
+                        <p>Invite parents to special events &#x2014; investitures, carol singing, and the end-of-year party.</p>
                     </div>
                     <div class="card" style="text-align: center; padding: var(--space-xl);">
-                        <span style="font-size: 2.5rem; display: block; margin-bottom: var(--space-sm);">🏅</span>
+                        <span style="font-size: 2.5rem; display: block; margin-bottom: var(--space-sm);">&#x1F3C5;</span>
                         <h3>Badge Integration</h3>
-                        <p>Tie activities to Scouting Ireland badge requirements where possible — double the value!</p>
+                        <p>Tie activities to Scouting Ireland badge requirements where possible &#x2014; double the value!</p>
                     </div>
                     <div class="card" style="text-align: center; padding: var(--space-xl);">
-                        <span style="font-size: 2.5rem; display: block; margin-bottom: var(--space-sm);">⏰</span>
+                        <span style="font-size: 2.5rem; display: block; margin-bottom: var(--space-sm);">&#x23F0;</span>
                         <h3>Keep It Short</h3>
-                        <p>Beavers are 6–8. Sessions are 1 hour. Plan 2–3 short activities rather than one long one.</p>
+                        <p>Beavers are 6&#x2013;8. Sessions are 1.5 hours. Plan 2&#x2013;3 short activities rather than one long one.</p>
                     </div>
                 </div>
             </div>
