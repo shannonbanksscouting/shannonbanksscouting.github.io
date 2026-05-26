@@ -1,0 +1,19 @@
+# Sensitive files
+gmail.txt
+*.env
+.env.*
+
+# OS files
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Editor files
+.vscode/
+*.swp
+*.swo
+*~
+
+# Node (future use)
+node_modules/
+package-lock.json

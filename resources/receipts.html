@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Receipt Generator | Shannon Banks Scouting</title>
+    <meta name="description" content="Generate professional payment receipts for membership and activity fees.">
+    <meta property="og:title" content="Receipt Generator — 25th Limerick Scouting">
+    <meta property="og:url" content="https://shannonbanksscouting.github.io/resources/receipts.html">
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <style>
+        .receipt-form { max-width: 600px; margin: 0 auto; }
+        .form-group { margin-bottom: var(--space-lg); }
+        .form-group label { display: block; margin-bottom: var(--space-xs); font-weight: 600; }
+        .form-group input, .form-group select { width: 100%; padding: var(--space-sm) var(--space-md); border: 2px solid var(--color-border); border-radius: var(--border-radius-md); font-size: 1rem; background: var(--color-surface); color: var(--color-text); transition: border-color 0.2s; }
+        .form-group input:focus, .form-group select:focus { border-color: var(--color-primary); outline: none; }
+        .form-error { color: var(--color-group-red); font-size: var(--font-size-sm); margin-top: var(--space-xs); display: none; }
+        .form-success { color: var(--color-scouts); font-size: var(--font-size-sm); text-align: center; margin-top: var(--space-md); display: none; }
+    </style>
+</head>
+<body>
+    <a href="#main" class="skip-link">Skip to main content</a>
+
+    <nav class="navbar" aria-label="Main navigation">
+        <div class="nav-container">
+            <a href="../index.html" class="nav-brand">
+                <img src="https://cdn.prod.website-files.com/618cf519424e2d632cd8c920/618cf9468e7b44379cb5a327_logo-white.png" alt="Scouting Ireland" class="nav-logo-img">
+                <span class="nav-title">Shannon Banks Scouting</span>
+            </a>
+            <ul class="nav-menu" role="menubar">
+                <li class="nav-item" role="none"><a href="../index.html" class="nav-link" role="menuitem">Home</a></li>
+                <li class="nav-item nav-dropdown" role="none">
+                    <a href="#" class="nav-link nav-dropdown-toggle" role="menuitem" aria-haspopup="true">Sections</a>
+                    <ul class="nav-dropdown-menu" role="menu">
+                        <li role="none"><a href="../beavers.html" class="nav-link" data-section="beavers" role="menuitem">Beavers</a></li>
+                        <li role="none"><a href="../cubs.html" class="nav-link" data-section="cubs" role="menuitem">Cubs</a></li>
+                        <li role="none"><a href="../scouts.html" class="nav-link" data-section="scouts" role="menuitem">Scouts</a></li>
+                        <li role="none"><a href="../ventures.html" class="nav-link" data-section="ventures" role="menuitem">Ventures</a></li>
+                        <li role="none"><a href="../rovers.html" class="nav-link" data-section="rovers" role="menuitem">Rovers</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item" role="none"><a href="../leaders.html" class="nav-link" role="menuitem">Leaders</a></li>
+                <li class="nav-item" role="none"><a href="../events.html" class="nav-link" role="menuitem">Events</a></li>
+                <li class="nav-item" role="none"><a href="../join.html" class="nav-link" role="menuitem">Join Us</a></li>
+                <li class="nav-item" role="none"><a href="../forms.html" class="nav-link" role="menuitem">Forms</a></li>
+                <li class="nav-item" role="none"><a href="../resources.html" class="nav-link active" role="menuitem">Resources</a></li>
+                <li class="nav-item" role="none"><a href="../announcements.html" class="nav-link" role="menuitem">News</a></li>
+            </ul>
+            <button class="theme-toggle" aria-label="Toggle dark mode">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+            </button>
+            <div class="hamburger" aria-label="Open menu" role="button" tabindex="0">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="container hero-content">
+            <span class="badge" style="background: var(--color-group-red-light); color: var(--color-group-red);">Admin Tool</span>
+            <h1>Receipt Generator</h1>
+            <p class="hero-subtitle">Generate professional receipts for membership payments</p>
+        </div>
+    </header>
+
+    <main id="main">
+        <section class="section">
+            <div class="container">
+                <div class="card receipt-form" data-aos="fade-up">
+                    <h2>Generate Payment Receipt</h2>
+                    <p style="margin-bottom: var(--space-xl); color: var(--color-text-muted);">Enter the payment details below to generate a PDF receipt.</p>
+
+                    <form id="receiptForm">
+                        <div class="form-group">
+                            <label for="payerName">Payer Name</label>
+                            <input type="text" id="payerName" name="payerName" required placeholder="Enter full name" autocomplete="name">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="amount">Amount Paid (€)</label>
+                            <input type="number" id="amount" name="amount" step="0.01" min="0.01" required placeholder="0.00">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="paymentFor">Payment For</label>
+                            <select id="paymentFor" name="paymentFor" required>
+                                <option value="">Select payment type...</option>
+                                <option value="Registration Fees 2025/2026">Registration Fees 2025/2026</option>
+                                <option value="Activity Fee">Activity Fee</option>
+                                <option value="Equipment Fee">Equipment Fee</option>
+                                <option value="Camp Fee">Camp Fee</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group" id="otherDescriptionGroup" style="display: none;">
+                            <label for="otherDescription">Other Description</label>
+                            <input type="text" id="otherDescription" name="otherDescription" placeholder="Describe what the payment is for">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="receiptPassword">Password</label>
+                            <input type="password" id="receiptPassword" name="receiptPassword" required placeholder="Enter password" autocomplete="off">
+                            <div id="passwordError" class="form-error">Incorrect password. Please try again.</div>
+                        </div>
+
+                        <button type="submit" class="btn btn--primary" style="width: 100%;">Generate Receipt</button>
+                    </form>
+
+                    <div id="successMessage" class="form-success">Receipt generated successfully! Check your downloads folder.</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section text-center" style="background: var(--color-surface);">
+            <div class="container">
+                <a href="../resources.html" class="btn btn--outline">&larr; Back to Resources</a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-accent"></div>
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <h4>25th Limerick St. Oliver Plunkett</h4>
+                    <p>Shannon Banks Scout Den<br>Corbally, Limerick<br>V94 K72O</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact</h4>
+                    <p><a href="mailto:shannonbanksscouting@gmail.com">shannonbanksscouting@gmail.com</a></p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <p>
+                        <a href="../forms.html">Forms &amp; Documents</a><br>
+                        <a href="../resources.html">Leader Resources</a><br>
+                        <a href="https://www.scouts.ie" target="_blank" rel="noopener noreferrer">Scouting Ireland</a>
+                    </p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 25th Limerick St. Oliver Plunkett Scout Group.</p>
+                <p>Part of <a href="https://www.scouts.ie" target="_blank" rel="noopener noreferrer">Scouting Ireland</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+    <script src="../script.js"></script>
+    <script>
+        const { jsPDF } = window.jspdf;
+
+        const form = document.getElementById('receiptForm');
+        const paymentForSelect = document.getElementById('paymentFor');
+        const otherDescriptionGroup = document.getElementById('otherDescriptionGroup');
+        const passwordInput = document.getElementById('receiptPassword');
+        const passwordError = document.getElementById('passwordError');
+        const successMessage = document.getElementById('successMessage');
+
+        paymentForSelect.addEventListener('change', function() {
+            if (this.value === 'Other') {
+                otherDescriptionGroup.style.display = 'block';
+                document.getElementById('otherDescription').required = true;
+            } else {
+                otherDescriptionGroup.style.display = 'none';
+                document.getElementById('otherDescription').required = false;
+            }
+        });
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            if (passwordInput.value !== 'SCOUTS2025') {
+                passwordError.style.display = 'block';
+                passwordInput.focus();
+                return;
+            }
+            passwordError.style.display = 'none';
+
+            const payerName = document.getElementById('payerName').value.trim();
+            const amount = parseFloat(document.getElementById('amount').value);
+            const paymentFor = paymentForSelect.value;
+            const otherDesc = document.getElementById('otherDescription').value.trim();
+            const paymentDescription = paymentFor === 'Other' && otherDesc ? otherDesc : paymentFor;
+
+            generateReceipt(payerName, amount, paymentDescription);
+        });
+
+        function generateReceipt(payerName, amount, paymentDescription) {
+            const doc = new jsPDF();
+            const primaryColor = [27, 67, 50];
+
+            doc.setFillColor(...primaryColor);
+            doc.rect(0, 0, 210, 45, 'F');
+
+            doc.setTextColor(255, 255, 255);
+            doc.setFontSize(20);
+            doc.setFont('helvetica', 'bold');
+            doc.text('PAYMENT RECEIPT', 105, 20, { align: 'center' });
+            doc.setFontSize(12);
+            doc.text('25th Limerick St. Oliver Plunkett Scout Group', 105, 30, { align: 'center' });
+            doc.text('Shannon Banks, Corbally, Limerick', 105, 38, { align: 'center' });
+
+            const receiptNumber = 'REC-' + Date.now().toString().slice(-8);
+            const currentDate = new Date().toLocaleDateString('en-IE', { day: '2-digit', month: '2-digit', year: 'numeric' });
+
+            doc.setTextColor(45, 55, 72);
+            doc.setFontSize(10);
+            doc.setFont('helvetica', 'normal');
+            doc.text('Receipt #: ' + receiptNumber, 20, 60);
+            doc.text('Date: ' + currentDate, 150, 60);
+
+            doc.setFontSize(12);
+            doc.text('Shannon Banks, Corbally, Limerick (V94 K72O)', 20, 75);
+            doc.text('Email: shannonbanksscouting@gmail.com', 20, 85);
+
+            doc.setDrawColor(...primaryColor);
+            doc.setLineWidth(1);
+            doc.line(20, 95, 190, 95);
+
+            doc.setFontSize(14);
+            doc.setFont('helvetica', 'bold');
+            doc.text('PAYMENT DETAILS', 20, 115);
+
+            doc.setFontSize(12);
+            doc.setFont('helvetica', 'normal');
+            doc.text('Received from:', 20, 130);
+            doc.setFont('helvetica', 'bold');
+            doc.text(payerName, 65, 130);
+
+            doc.setFont('helvetica', 'normal');
+            doc.text('Amount:', 20, 145);
+            doc.setFont('helvetica', 'bold');
+            doc.setFontSize(16);
+            doc.text('\u20AC' + amount.toFixed(2), 65, 145);
+
+            doc.setFontSize(12);
+            doc.setFont('helvetica', 'normal');
+            doc.text('Payment for:', 20, 160);
+            doc.setFont('helvetica', 'bold');
+            doc.text(paymentDescription, 65, 160);
+
+            doc.setFont('helvetica', 'normal');
+            doc.text('Payment method:', 20, 175);
+            doc.setFont('helvetica', 'bold');
+            doc.text('Cash', 65, 175);
+
+            doc.setDrawColor(...primaryColor);
+            doc.line(20, 195, 190, 195);
+
+            doc.setFontSize(10);
+            doc.setFont('helvetica', 'normal');
+            doc.setTextColor(100, 100, 100);
+            doc.text('This receipt was generated electronically by 25th Limerick Scouts', 105, 210, { align: 'center' });
+            doc.text('Part of Scouting Ireland', 105, 220, { align: 'center' });
+
+            doc.setFontSize(12);
+            doc.setTextColor(...primaryColor);
+            doc.setFont('helvetica', 'bold');
+            doc.text('Thank you for your payment!', 105, 240, { align: 'center' });
+
+            const filename = 'Receipt_' + payerName.replace(/\s+/g, '_') + '_' + currentDate.replace(/\//g, '-') + '.pdf';
+            doc.save(filename);
+
+            successMessage.style.display = 'block';
+            form.reset();
+            setTimeout(function() { successMessage.style.display = 'none'; }, 5000);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Knots &amp; Lashings | Shannon Banks Scouting</title>
+    <meta name="description" content="Learn essential scouting knots — reef knot, clove hitch, and bowline with step-by-step guides and videos.">
+    <meta property="og:title" content="Knots Guide — 25th Limerick Scouting">
+    <meta property="og:url" content="https://shannonbanksscouting.github.io/resources/knots.html">
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css">
+    <style>
+        .knot-card { border-left: 4px solid var(--color-scouts); }
+        .knot-number { display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: 50%; background: var(--color-scouts); color: white; font-weight: 700; font-size: var(--font-size-sm); flex-shrink: 0; }
+        .knot-header { display: flex; align-items: center; gap: var(--space-md); margin-bottom: var(--space-md); }
+        .knot-content ul { list-style: disc; padding-left: var(--space-lg); color: var(--color-text-muted); margin-bottom: var(--space-md); }
+        .knot-tip { background: var(--color-scouts-light); padding: var(--space-md); border-radius: var(--border-radius-md); margin: var(--space-md) 0; }
+        .video-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: var(--border-radius-md); margin-top: var(--space-md); }
+        .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
+        .tips-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: var(--space-lg); }
+        .tip-card { text-align: center; padding: var(--space-lg); }
+        .tip-icon { font-size: 2.5rem; display: block; margin-bottom: var(--space-sm); }
+    </style>
+</head>
+<body>
+    <a href="#main" class="skip-link">Skip to main content</a>
+
+    <nav class="navbar" aria-label="Main navigation">
+        <div class="nav-container">
+            <a href="../index.html" class="nav-brand">
+                <img src="https://cdn.prod.website-files.com/618cf519424e2d632cd8c920/618cf9468e7b44379cb5a327_logo-white.png" alt="Scouting Ireland" class="nav-logo-img">
+                <span class="nav-title">Shannon Banks Scouting</span>
+            </a>
+            <ul class="nav-menu" role="menubar">
+                <li class="nav-item" role="none"><a href="../index.html" class="nav-link" role="menuitem">Home</a></li>
+                <li class="nav-item nav-dropdown" role="none">
+                    <a href="#" class="nav-link nav-dropdown-toggle" role="menuitem" aria-haspopup="true">Sections</a>
+                    <ul class="nav-dropdown-menu" role="menu">
+                        <li role="none"><a href="../beavers.html" class="nav-link" data-section="beavers" role="menuitem">Beavers</a></li>
+                        <li role="none"><a href="../cubs.html" class="nav-link" data-section="cubs" role="menuitem">Cubs</a></li>
+                        <li role="none"><a href="../scouts.html" class="nav-link" data-section="scouts" role="menuitem">Scouts</a></li>
+                        <li role="none"><a href="../ventures.html" class="nav-link" data-section="ventures" role="menuitem">Ventures</a></li>
+                        <li role="none"><a href="../rovers.html" class="nav-link" data-section="rovers" role="menuitem">Rovers</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item" role="none"><a href="../leaders.html" class="nav-link" role="menuitem">Leaders</a></li>
+                <li class="nav-item" role="none"><a href="../events.html" class="nav-link" role="menuitem">Events</a></li>
+                <li class="nav-item" role="none"><a href="../join.html" class="nav-link" role="menuitem">Join Us</a></li>
+                <li class="nav-item" role="none"><a href="../forms.html" class="nav-link" role="menuitem">Forms</a></li>
+                <li class="nav-item" role="none"><a href="../resources.html" class="nav-link active" role="menuitem">Resources</a></li>
+                <li class="nav-item" role="none"><a href="../announcements.html" class="nav-link" role="menuitem">News</a></li>
+            </ul>
+            <button class="theme-toggle" aria-label="Toggle dark mode">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+            </button>
+            <div class="hamburger" aria-label="Open menu" role="button" tabindex="0">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+    </nav>
+
+    <header class="hero section--scouts">
+        <div class="container hero-content">
+            <span class="badge badge--scouts">Activity Guide</span>
+            <h1>Knots &amp; Lashings</h1>
+            <p class="hero-subtitle">Three essential knots every Scout should learn</p>
+        </div>
+    </header>
+
+    <main id="main">
+        <section class="section">
+            <div class="container">
+                <p style="text-align: center; max-width: 700px; margin: 0 auto var(--space-2xl);">
+                    For younger sections (ages 6–8), we focus on simple, functional knots that build coordination and are genuinely useful. Here are three essential knots every young person should learn!
+                </p>
+
+                <div class="card-grid" style="grid-template-columns: 1fr;">
+                    <!-- Reef Knot -->
+                    <div class="card knot-card" id="reef-knot" data-aos="fade-up">
+                        <div class="knot-header">
+                            <span class="knot-number">1</span>
+                            <h3>Reef Knot (Square Knot)</h3>
+                        </div>
+                        <p>The most common "starter" knot. Used for <strong>joining two pieces of rope of equal thickness</strong>. It's the basis for tying bandages and parcels.</p>
+                        <h4>Uses:</h4>
+                        <ul>
+                            <li>Tying bandages</li>
+                            <li>Wrapping parcels</li>
+                            <li>Tying shoelaces (the flat part!)</li>
+                            <li>Joining two ropes together</li>
+                        </ul>
+                        <div class="knot-tip">
+                            <strong>Remember:</strong> "Right over left, left over right, makes a knot both tidy and tight!"
+                        </div>
+                        <div class="video-container">
+                            <iframe src="https://www.youtube.com/embed/Np1LXDAOn5M" title="How to tie a Reef Knot" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+                        </div>
+                    </div>
+
+                    <!-- Clove Hitch -->
+                    <div class="card knot-card" id="clove-hitch" data-aos="fade-up">
+                        <div class="knot-header">
+                            <span class="knot-number">2</span>
+                            <h3>Clove Hitch</h3>
+                        </div>
+                        <p>A versatile knot used to <strong>secure a rope to a post or spar</strong>. It's the starting point for many pioneering projects.</p>
+                        <h4>Uses:</h4>
+                        <ul>
+                            <li>Tying a rope to a pole</li>
+                            <li>Starting pioneering projects</li>
+                            <li>Securing a tent line to a peg</li>
+                            <li>Quick temporary fastening</li>
+                        </ul>
+                        <div class="knot-tip">
+                            <strong>Remember:</strong> Two loops that cross over each other around the pole!
+                        </div>
+                        <div class="video-container">
+                            <iframe src="https://www.youtube.com/embed/aeddOym4L4Y" title="Clove Hitch" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+                        </div>
+                    </div>
+
+                    <!-- Bowline -->
+                    <div class="card knot-card" id="bowline" data-aos="fade-up">
+                        <div class="knot-header">
+                            <span class="knot-number">3</span>
+                            <h3>Bowline (The King of Knots!)</h3>
+                        </div>
+                        <p>Known as the <strong>"King of Knots"</strong> — the Bowline creates a fixed loop at the end of a rope. It <strong>won't slip or jam under load</strong>. Rescuers use this knot!</p>
+                        <h4>Uses:</h4>
+                        <ul>
+                            <li>Creating a rescue loop</li>
+                            <li>Tying a boat to a dock</li>
+                            <li>Making a loop that won't tighten</li>
+                            <li>Securing climbing ropes</li>
+                        </ul>
+                        <div class="knot-tip">
+                            <strong>Remember the Story:</strong> "The rabbit comes out of the hole, goes around the tree, and back down the hole!"
+                        </div>
+                        <div class="video-container">
+                            <iframe src="https://www.youtube.com/embed/gqfYB1bsGMc" title="Quick Bowline Tutorial" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Practice Tips -->
+        <section class="section" style="background: var(--color-surface);">
+            <div class="container">
+                <div class="section-header" data-aos="fade-up">
+                    <h2>Tips for Practising at Home</h2>
+                </div>
+                <div class="tips-grid" data-aos="fade-up">
+                    <div class="card tip-card">
+                        <span class="tip-icon">🪢</span>
+                        <h4>Use the Right Rope</h4>
+                        <p>A soft, flexible rope about 60cm long is perfect for practice.</p>
+                    </div>
+                    <div class="card tip-card">
+                        <span class="tip-icon">🔁</span>
+                        <h4>Practice Makes Perfect</h4>
+                        <p>Try tying each knot 10 times in a row until your hands remember.</p>
+                    </div>
+                    <div class="card tip-card">
+                        <span class="tip-icon">👀</span>
+                        <h4>Watch Then Try</h4>
+                        <p>Watch the video, pause it, then try yourself. Rewind if needed!</p>
+                    </div>
+                    <div class="card tip-card">
+                        <span class="tip-icon">👨‍👩‍👧</span>
+                        <h4>Teach Someone Else</h4>
+                        <p>The best way to learn is to teach! Show a family member.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section text-center">
+            <div class="container">
+                <a href="../resources.html" class="btn btn--outline">&larr; Back to Resources</a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-accent"></div>
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <h4>25th Limerick St. Oliver Plunkett</h4>
+                    <p>Shannon Banks Scout Den<br>Corbally, Limerick<br>V94 K72O</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact</h4>
+                    <p><a href="mailto:shannonbanksscouting@gmail.com">shannonbanksscouting@gmail.com</a></p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <p>
+                        <a href="../forms.html">Forms &amp; Documents</a><br>
+                        <a href="../resources.html">Leader Resources</a><br>
+                        <a href="https://www.scouts.ie" target="_blank" rel="noopener noreferrer">Scouting Ireland</a>
+                    </p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 25th Limerick St. Oliver Plunkett Scout Group.</p>
+                <p>Part of <a href="https://www.scouts.ie" target="_blank" rel="noopener noreferrer">Scouting Ireland</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+    <script src="../script.js"></script>
+</body>
+</html>
