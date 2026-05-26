@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Typical Beaver Year | Shannon Banks Scouting</title>
+    <meta name="description" content="A sample week-by-week programme for a Beaver Scout year — activities, outings, and events from September to June.">
+    <meta property="og:title" content="Typical Beaver Year — 25th Limerick Scouting">
+    <meta property="og:url" content="https://shannonbanksscouting.github.io/resources/beaver-year-template.html">
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css">
+    <style>
+        .year-table { width: 100%; border-collapse: collapse; margin-top: var(--space-lg); }
+        .year-table th, .year-table td { padding: var(--space-sm) var(--space-md); text-align: left; border-bottom: 1px solid var(--color-border); }
+        .year-table th { background: var(--color-surface); font-weight: 700; font-size: var(--font-size-sm); text-transform: uppercase; letter-spacing: 0.05em; color: var(--color-text-muted); position: sticky; top: 0; }
+        .year-table tr:hover td { background: color-mix(in srgb, var(--color-beavers) 5%, transparent); }
+        .month-header td { background: color-mix(in srgb, var(--color-beavers) 12%, var(--color-surface)); font-weight: 700; color: var(--color-beavers); border-bottom: 2px solid var(--color-beavers); }
+        .year-table .special td { font-weight: 600; }
+        .year-table .no-meeting td { opacity: 0.6; font-style: italic; }
+        .category-legend { display: flex; flex-wrap: wrap; gap: var(--space-md); margin-top: var(--space-lg); margin-bottom: var(--space-xl); }
+        .legend-item { display: flex; align-items: center; gap: var(--space-xs); font-size: var(--font-size-sm); }
+        .legend-dot { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; }
+        .legend-dot--craft { background: #F59E0B; }
+        .legend-dot--outdoor { background: #10B981; }
+        .legend-dot--visit { background: #6366F1; }
+        .legend-dot--event { background: #EC4899; }
+        .legend-dot--games { background: #0EA5E9; }
+        .legend-dot--skills { background: #8B5CF6; }
+        @media (max-width: 600px) {
+            .year-table th:first-child, .year-table td:first-child { min-width: 90px; }
+            .year-table { font-size: var(--font-size-sm); }
+        }
+    </style>
+</head>
+<body>
+    <a href="#main" class="skip-link">Skip to main content</a>
+
+    <nav class="navbar" aria-label="Main navigation">
+        <div class="nav-container">
+            <a href="../index.html" class="nav-brand">
+                <img src="https://cdn.prod.website-files.com/618cf519424e2d632cd8c920/618cf9468e7b44379cb5a327_logo-white.png" alt="Scouting Ireland" class="nav-logo-img">
+                <span class="nav-title">Shannon Banks Scouting</span>
+            </a>
+            <ul class="nav-menu" role="menubar">
+                <li class="nav-item" role="none"><a href="../index.html" class="nav-link" role="menuitem">Home</a></li>
+                <li class="nav-item nav-dropdown" role="none">
+                    <a href="#" class="nav-link nav-dropdown-toggle" role="menuitem" aria-haspopup="true">Sections</a>
+                    <ul class="nav-dropdown-menu" role="menu">
+                        <li role="none"><a href="../beavers.html" class="nav-link" data-section="beavers" role="menuitem">Beavers</a></li>
+                        <li role="none"><a href="../cubs.html" class="nav-link" data-section="cubs" role="menuitem">Cubs</a></li>
+                        <li role="none"><a href="../scouts.html" class="nav-link" data-section="scouts" role="menuitem">Scouts</a></li>
+                        <li role="none"><a href="../ventures.html" class="nav-link" data-section="ventures" role="menuitem">Ventures</a></li>
+                        <li role="none"><a href="../rovers.html" class="nav-link" data-section="rovers" role="menuitem">Rovers</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item" role="none"><a href="../leaders.html" class="nav-link" role="menuitem">Leaders</a></li>
+                <li class="nav-item" role="none"><a href="../events.html" class="nav-link" role="menuitem">Events</a></li>
+                <li class="nav-item" role="none"><a href="../join.html" class="nav-link" role="menuitem">Join Us</a></li>
+                <li class="nav-item" role="none"><a href="../forms.html" class="nav-link" role="menuitem">Forms</a></li>
+                <li class="nav-item" role="none"><a href="../resources.html" class="nav-link active" role="menuitem">Resources</a></li>
+                <li class="nav-item" role="none"><a href="../announcements.html" class="nav-link" role="menuitem">News</a></li>
+            </ul>
+            <button class="theme-toggle" aria-label="Toggle dark mode">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+            </button>
+            <div class="hamburger" aria-label="Open menu" role="button" tabindex="0">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+    </nav>
+
+    <header class="hero section--beavers">
+        <div class="container hero-content">
+            <span class="badge badge--beavers">Template</span>
+            <h1>A Typical Beaver Year</h1>
+            <p class="hero-subtitle">Sample week-by-week programme from September to June — adapt it for your section!</p>
+        </div>
+    </header>
+
+    <main id="main">
+        <section class="section">
+            <div class="container">
+                <p style="text-align: center; max-width: 750px; margin: 0 auto var(--space-xl);">
+                    This is a real-world example of a full Beaver Scout year. It shows the mix of crafts, outdoor activities, visits, games, and special events that make up a balanced programme. Use it as inspiration when planning your own section's year.
+                </p>
+
+                <div class="category-legend">
+                    <span class="legend-item"><span class="legend-dot legend-dot--craft"></span> Craft / Making</span>
+                    <span class="legend-item"><span class="legend-dot legend-dot--outdoor"></span> Outdoor / Hike</span>
+                    <span class="legend-item"><span class="legend-dot legend-dot--visit"></span> Visit / Outing</span>
+                    <span class="legend-item"><span class="legend-dot legend-dot--event"></span> Special Event</span>
+                    <span class="legend-item"><span class="legend-dot legend-dot--games"></span> Games Night</span>
+                    <span class="legend-item"><span class="legend-dot legend-dot--skills"></span> Skills / Badge Work</span>
+                </div>
+
+                <div style="overflow-x: auto;">
+                    <table class="year-table" data-aos="fade-up">
+                        <thead>
+                            <tr>
+                                <th>Week</th>
+                                <th>Activity</th>
+                                <th>Type</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- SEPTEMBER -->
+                            <tr class="month-header"><td colspan="3">September</td></tr>
+                            <tr>
+                                <td>Week 1</td>
+                                <td>Organising Lodges &amp; Lodge Posters</td>
+                                <td>🎨 Craft</td>
+                            </tr>
+                            <tr>
+                                <td>Week 2</td>
+                                <td>Hike (weather permitting) or Compass Making</td>
+                                <td>🥾 Outdoor</td>
+                            </tr>
+                            <tr class="special">
+                                <td>Week 3</td>
+                                <td>SUAS Climbing Wall</td>
+                                <td>🏛️ Visit</td>
+                            </tr>
+
+                            <!-- OCTOBER -->
+                            <tr class="month-header"><td colspan="3">October</td></tr>
+                            <tr class="special">
+                                <td>Week 1</td>
+                                <td>Special Outing (e.g. Circus Visit)</td>
+                                <td>🏛️ Visit</td>
+                            </tr>
+                            <tr>
+                                <td>Week 2</td>
+                                <td>Beaver Games Evening</td>
+                                <td>🎮 Games</td>
+                            </tr>
+                            <tr class="special">
+                                <td>Week 3</td>
+                                <td>Halloween Party (with magician or entertainer)</td>
+                                <td>🎉 Event</td>
+                            </tr>
+                            <tr class="no-meeting">
+                                <td>Week 4</td>
+                                <td>Mid-term Break — No Meeting</td>
+                                <td>—</td>
+                            </tr>
+
+                            <!-- NOVEMBER -->
+                            <tr class="month-header"><td colspan="3">November</td></tr>
+                            <tr class="special">
+                                <td>Week 1</td>
+                                <td>Community Visit (e.g. Marine Search &amp; Rescue)</td>
+                                <td>🏛️ Visit</td>
+                            </tr>
+                            <tr class="special">
+                                <td>Weekend</td>
+                                <td>Local Visit (e.g. Garda Station)</td>
+                                <td>🏛️ Visit</td>
+                            </tr>
+                            <tr>
+                                <td>Week 2</td>
+                                <td>Bingo Night or Indoor Games</td>
+                                <td>🎮 Games</td>
+                            </tr>
+                            <tr>
+                                <td>Week 3</td>
+                                <td>Urban Orienteering / Treasure Hunt</td>
+                                <td>🥾 Outdoor</td>
+                            </tr>
+                            <tr>
+                                <td>Week 4</td>
+                                <td>Investiture Preparation</td>
+                                <td>🧭 Skills</td>
+                            </tr>
+                            <tr class="special">
+                                <td>Weekend</td>
+                                <td>Investiture Ceremony</td>
+                                <td>🎉 Event</td>
+                            </tr>
+
+                            <!-- DECEMBER -->
+                            <tr class="month-header"><td colspan="3">December</td></tr>
+                            <tr>
+                                <td>Week 1</td>
+                                <td>Christmas Craft (decorations or cards)</td>
+                                <td>🎨 Craft</td>
+                            </tr>
+                            <tr class="special">
+                                <td>Weekend</td>
+                                <td>Carol Singing at local nursing home</td>
+                                <td>🎉 Event</td>
+                            </tr>
+                            <tr>
+                                <td>Week 2</td>
+                                <td>Board Games Night — bring your favourites!</td>
+                                <td>🎮 Games</td>
+                            </tr>
+                            <tr class="special">
+                                <td>Week 3</td>
+                                <td>Christmas Pyjama Party &amp; Movie Night</td>
+                                <td>🎉 Event</td>
+                            </tr>
+                            <tr class="no-meeting">
+                                <td>Weeks 4–5</td>
+                                <td>Christmas Holidays — No Meetings</td>
+                                <td>—</td>
+                            </tr>
+
+                            <!-- JANUARY -->
+                            <tr class="month-header"><td colspan="3">January</td></tr>
+                            <tr>
+                                <td>Week 2</td>
+                                <td>Beaver Games Night (WDS Games Book)</td>
+                                <td>🎮 Games</td>
+                            </tr>
+                            <tr>
+                                <td>Week 3</td>
+                                <td>Mini Bridges &amp; Towers + Knot Tying</td>
+                                <td>🧭 Skills</td>
+                            </tr>
+                            <tr>
+                                <td>Week 4</td>
+                                <td>St. Brigid's Crosses</td>
+                                <td>🎨 Craft</td>
+                            </tr>
+
+                            <!-- FEBRUARY -->
+                            <tr class="month-header"><td colspan="3">February</td></tr>
+                            <tr>
+                                <td>Week 1</td>
+                                <td>Parachute Making</td>
+                                <td>🎨 Craft</td>
+                            </tr>
+                            <tr class="special">
+                                <td>Week 2</td>
+                                <td>Knife Safety &amp; Bushcraft (guest instructor)</td>
+                                <td>🧭 Skills</td>
+                            </tr>
+                            <tr>
+                                <td>Week 3</td>
+                                <td>Pancake Tuesday — cooking activity</td>
+                                <td>🎨 Craft</td>
+                            </tr>
+                            <tr class="no-meeting">
+                                <td>Week 4</td>
+                                <td>Mid-term Break — No Meeting</td>
+                                <td>—</td>
+                            </tr>
+
+                            <!-- MARCH -->
+                            <tr class="month-header"><td colspan="3">March</td></tr>
+                            <tr>
+                                <td>Week 1</td>
+                                <td>Outdoor Hike (weather permitting)</td>
+                                <td>🥾 Outdoor</td>
+                            </tr>
+                            <tr class="special">
+                                <td>Week 2</td>
+                                <td>Uniform Night — New Beaver Investiture + Compass Making</td>
+                                <td>🎉 Event</td>
+                            </tr>
+                            <tr class="special">
+                                <td>March 17</td>
+                                <td>St. Patrick's Day — Optional Group Mass &amp; Parade</td>
+                                <td>🎉 Event</td>
+                            </tr>
+                            <tr>
+                                <td>Week 4</td>
+                                <td>Craft Night (e.g. Vuvuzelas)</td>
+                                <td>🎨 Craft</td>
+                            </tr>
+                            <tr class="special">
+                                <td>Weekend</td>
+                                <td>County Beaver Hike (weather dependent)</td>
+                                <td>🥾 Outdoor</td>
+                            </tr>
+                            <tr class="no-meeting">
+                                <td>Week 5</td>
+                                <td>Easter Holidays — No Meeting (2 weeks)</td>
+                                <td>—</td>
+                            </tr>
+
+                            <!-- APRIL -->
+                            <tr class="month-header"><td colspan="3">April</td></tr>
+                            <tr>
+                                <td>Week 3</td>
+                                <td>Colouring &amp; Paper Airplane Competition</td>
+                                <td>🎨 Craft</td>
+                            </tr>
+                            <tr class="special">
+                                <td>Week 4</td>
+                                <td>Long Hike (e.g. 5km trail walk)</td>
+                                <td>🥾 Outdoor</td>
+                            </tr>
+                            <tr class="special">
+                                <td>Week 5</td>
+                                <td>Loop Walk along river / canal</td>
+                                <td>🥾 Outdoor</td>
+                            </tr>
+
+                            <!-- MAY -->
+                            <tr class="month-header"><td colspan="3">May</td></tr>
+                            <tr>
+                                <td>Week 1</td>
+                                <td>Tent Pitching Practice — prep for overnight!</td>
+                                <td>🧭 Skills</td>
+                            </tr>
+                            <tr>
+                                <td>Week 2</td>
+                                <td>Urban Orienteering Part II</td>
+                                <td>🥾 Outdoor</td>
+                            </tr>
+                            <tr class="special">
+                                <td>Week 3</td>
+                                <td>Overnight Camp (Friday–Saturday)</td>
+                                <td>🎉 Event</td>
+                            </tr>
+                            <tr class="special">
+                                <td>Weekend</td>
+                                <td>County Beaver Event (full day outing)</td>
+                                <td>🎉 Event</td>
+                            </tr>
+
+                            <!-- JUNE -->
+                            <tr class="month-header"><td colspan="3">June</td></tr>
+                            <tr class="special">
+                                <td>Week 1</td>
+                                <td>End of Year Party</td>
+                                <td>🎉 Event</td>
+                            </tr>
+                            <tr class="special">
+                                <td>Weekend</td>
+                                <td>Group Camp (all sections)</td>
+                                <td>🎉 Event</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tips Section -->
+        <section class="section" style="background: var(--color-surface);">
+            <div class="container" data-aos="fade-up">
+                <div class="section-header">
+                    <h2>Planning Tips</h2>
+                    <p>Things to keep in mind when building your Beaver year</p>
+                </div>
+                <div class="card-grid card-grid--3">
+                    <div class="card" style="text-align: center; padding: var(--space-xl);">
+                        <span style="font-size: 2.5rem; display: block; margin-bottom: var(--space-sm);">🌦️</span>
+                        <h3>Plan A / Plan B</h3>
+                        <p>Always have an indoor backup. Weather is unpredictable — have a games night or craft ready to go.</p>
+                    </div>
+                    <div class="card" style="text-align: center; padding: var(--space-xl);">
+                        <span style="font-size: 2.5rem; display: block; margin-bottom: var(--space-sm);">🔄</span>
+                        <h3>Vary the Mix</h3>
+                        <p>Alternate between outdoor, craft, games, visits, and skills. Don't do two crafts in a row!</p>
+                    </div>
+                    <div class="card" style="text-align: center; padding: var(--space-xl);">
+                        <span style="font-size: 2.5rem; display: block; margin-bottom: var(--space-sm);">📅</span>
+                        <h3>Book Early</h3>
+                        <p>Visits and guest speakers need lead time. Confirm special events at least 4 weeks ahead.</p>
+                    </div>
+                    <div class="card" style="text-align: center; padding: var(--space-xl);">
+                        <span style="font-size: 2.5rem; display: block; margin-bottom: var(--space-sm);">👨‍👩‍👧</span>
+                        <h3>Parent Involvement</h3>
+                        <p>Invite parents to special events — investitures, carol singing, and the end-of-year party.</p>
+                    </div>
+                    <div class="card" style="text-align: center; padding: var(--space-xl);">
+                        <span style="font-size: 2.5rem; display: block; margin-bottom: var(--space-sm);">🏅</span>
+                        <h3>Badge Integration</h3>
+                        <p>Tie activities to Scouting Ireland badge requirements where possible — double the value!</p>
+                    </div>
+                    <div class="card" style="text-align: center; padding: var(--space-xl);">
+                        <span style="font-size: 2.5rem; display: block; margin-bottom: var(--space-sm);">⏰</span>
+                        <h3>Keep It Short</h3>
+                        <p>Beavers are 6–8. Sessions are 1 hour. Plan 2–3 short activities rather than one long one.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section text-center">
+            <div class="container">
+                <a href="../resources.html" class="btn btn--outline">&larr; Back to Resources</a>
+                <a href="../beavers.html" class="btn btn--secondary" style="margin-left: var(--space-md);">Beavers Page</a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-accent"></div>
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <h4>25th Limerick St. Oliver Plunkett</h4>
+                    <p>Shannon Banks Scout Den<br>Corbally, Limerick<br>V94 K72O</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact</h4>
+                    <p><a href="mailto:shannonbanksscouting@gmail.com">shannonbanksscouting@gmail.com</a></p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <p>
+                        <a href="../forms.html">Forms &amp; Documents</a><br>
+                        <a href="../resources.html">Leader Resources</a><br>
+                        <a href="https://www.scouts.ie" target="_blank" rel="noopener noreferrer">Scouting Ireland</a>
+                    </p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 25th Limerick St. Oliver Plunkett Scout Group.</p>
+                <p>Part of <a href="https://www.scouts.ie" target="_blank" rel="noopener noreferrer">Scouting Ireland</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+    <script src="../script.js"></script>
+</body>
+</html>
