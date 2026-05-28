@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initLogout();
 });
 
-const EMAIL_DOMAIN = '@shannonbanks.local';
+const EMAIL_DOMAIN = '@shannonbanksscouts.ie';
 
 /* ---- SESSION CHECK ---- */
 async function checkSession() {
@@ -77,7 +77,19 @@ function initLoginForm() {
             password: password
         });
 
+        // Fallback: try old domain for accounts created before migration
+        let loginData = data;
+        let loginError = error;
         if (error) {
+            const fallback = await sb.auth.signInWithPassword({
+                email: username + '@shannonbanks.local',
+                password: password
+            });
+            loginData = fallback.data;
+            loginError = fallback.error;
+        }
+
+        if (loginError) {
             showLoginError('Invalid username or password.');
             btn.disabled = false;
             return;
@@ -87,7 +99,7 @@ function initLoginForm() {
         const { data: profile } = await sb
             .from('profiles')
             .select('is_suspended, username, display_name, avatar_url')
-            .eq('id', data.user.id)
+            .eq('id', loginData.user.id)
             .single();
 
         if (profile && profile.is_suspended) {
@@ -98,7 +110,7 @@ function initLoginForm() {
         }
 
         btn.disabled = false;
-        showDashboard(data.session, profile);
+        showDashboard(loginData.session, profile);
     });
 }
 
