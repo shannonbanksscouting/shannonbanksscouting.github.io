@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>News | Shannon Banks Scouting</title>
-    <meta name="description" content="Latest news and announcements from the 25th Limerick St. Oliver Plunkett Scout Group.">
-    <meta property="og:title" content="News — 25th Limerick Scouting">
-    <meta property="og:url" content="https://shannonbanksscouting.github.io/announcements.html">
+    <title>Monday Beavers News | Shannon Banks Scouting</title>
+    <meta name="description" content="News and announcements for the Monday Night Beaver Colony at the 25th Limerick St. Oliver Plunkett Scout Group.">
+    <meta property="og:title" content="Monday Beavers News — 25th Limerick Scouting">
+    <meta property="og:url" content="https://shannonbanksscouting.github.io/announcements-beavers-monday.html">
     <link rel="icon" type="image/x-icon" href="images/favicon.ico">
     <meta property="og:image" content="https://shannonbanksscouting.github.io/images/og-image.png">
     <meta name="twitter:card" content="summary_large_image">
@@ -51,47 +51,27 @@
         </div>
     </nav>
 
-    <header class="hero">
+    <header class="hero section--beavers">
         <div class="container hero-content">
-            <h1>News &amp; Announcements</h1>
-            <p class="hero-subtitle">The latest updates from across all sections</p>
+            <span class="badge badge--beavers">Beavers</span>
+            <h1>Monday Night Beaver News</h1>
+            <p class="hero-subtitle">Updates for the Monday Night Beaver Colony</p>
         </div>
     </header>
 
     <main id="main">
-        <!-- Section News Links -->
         <section class="section">
             <div class="container">
-                <div class="section-header" data-aos="fade-up">
-                    <h2>News by Section</h2>
-                    <p>Choose your section to see the latest updates</p>
+                <div class="card-grid" data-aos="fade-up" id="announcements-container">
+                    <p style="color: var(--color-text-muted);">Loading announcements...</p>
                 </div>
-                <div class="card-grid card-grid--compact" data-aos="fade-up">
-                    <a href="announcements-beavers-monday.html" class="card card--accent-top card--beavers" style="text-decoration: none;">
-                        <h3>Monday Beavers</h3>
-                        <p>Monday Night Beaver Colony</p>
-                    </a>
-                    <a href="announcements-beavers-tuesday.html" class="card card--accent-top card--beavers" style="text-decoration: none;">
-                        <h3>Tuesday Beavers</h3>
-                        <p>Tuesday Night Beaver Colony</p>
-                    </a>
-                    <a href="announcements-cubs-wednesday.html" class="card card--accent-top card--cubs" style="text-decoration: none;">
-                        <h3>Wednesday Cubs</h3>
-                        <p>Wednesday Night Cub Pack</p>
-                    </a>
-                    <a href="announcements-cubs-thursday.html" class="card card--accent-top card--cubs" style="text-decoration: none;">
-                        <h3>Thursday Cubs</h3>
-                        <p>Thursday Night Cub Pack</p>
-                    </a>
-                    <a href="announcements-scouts.html" class="card card--accent-top card--scouts" style="text-decoration: none;">
-                        <h3>Friday Scouts</h3>
-                        <p>Friday Night Scout Troop</p>
-                    </a>
-                    <a href="announcements-group.html" class="card card--accent-top" style="text-decoration: none;">
-                        <h3>Group News</h3>
-                        <p>Updates for all sections</p>
-                    </a>
-                </div>
+            </div>
+        </section>
+
+        <section class="section text-center" style="background: var(--color-surface);">
+            <div class="container">
+                <a href="announcements.html" class="btn btn--outline">&larr; Back to All News</a>
+                <a href="beavers.html" class="btn btn--secondary" style="margin-left: var(--space-md);">Beavers Page</a>
             </div>
         </section>
     </main>
@@ -126,6 +106,20 @@
     </footer>
 
     <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase-config.js"></script>
+    <script src="supabase-public.js"></script>
     <script src="script.js"></script>
+    <script>
+        (async () => {
+            const container = document.getElementById('announcements-container');
+            const announcements = await fetchAnnouncements('beavers', 50, 'monday');
+            if (announcements.length === 0) {
+                container.innerHTML = '<p style="color: var(--color-text-muted);">No announcements yet.</p>';
+            } else {
+                container.innerHTML = announcements.map(renderAnnouncementCard).join('');
+            }
+        })();
+    </script>
 </body>
 </html>

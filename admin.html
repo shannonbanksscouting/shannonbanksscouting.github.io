@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leader Admin | Shannon Banks Scouting</title>
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="admin.css">
+    <link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet">
+</head>
+<body>
+    <a href="#main" class="skip-link">Skip to main content</a>
+
+    <nav class="navbar" aria-label="Main navigation">
+        <div class="nav-container">
+            <a href="index.html" class="nav-brand">
+                <img src="https://cdn.prod.website-files.com/618cf519424e2d632cd8c920/618cf9468e7b44379cb5a327_logo-white.png" alt="Scouting Ireland" class="nav-logo-img">
+                <span class="nav-title">Shannon Banks Scouting</span>
+            </a>
+            <ul class="nav-menu" role="menubar">
+                <li class="nav-item" role="none"><a href="index.html" class="nav-link" role="menuitem">Home</a></li>
+                <li class="nav-item" role="none"><a href="announcements.html" class="nav-link" role="menuitem">News</a></li>
+                <li class="nav-item" role="none"><a href="admin.html" class="nav-link active" role="menuitem">Admin</a></li>
+            </ul>
+            <button class="theme-toggle" aria-label="Toggle dark mode">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+            </button>
+            <div class="hamburger" aria-label="Open menu" role="button" tabindex="0">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+    </nav>
+
+    <main id="main">
+        <!-- Login Section -->
+        <section class="section login-section" id="login-section">
+            <div class="login-container">
+                <div class="login-card">
+                    <h2>Leader Login</h2>
+                    <p class="login-subtitle">Sign in to manage the site</p>
+                    <form id="login-form">
+                        <div class="form-group">
+                            <label for="login-username">Username</label>
+                            <input type="text" id="login-username" autocomplete="username" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="login-password">Password</label>
+                            <input type="password" id="login-password" autocomplete="current-password" required>
+                        </div>
+                        <p class="form-error" id="login-error"></p>
+                        <button type="submit" class="btn-login" id="login-btn">Sign In</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- Admin Dashboard (hidden until authenticated) -->
+        <div class="admin-dashboard" id="admin-dashboard">
+            <div class="admin-header">
+                <h1>Admin Dashboard</h1>
+                <div class="admin-user-info">
+                    <span id="admin-username"></span>
+                    <button class="btn-logout" id="btn-logout">Sign Out</button>
+                </div>
+            </div>
+
+            <!-- Tabs -->
+            <div class="admin-tabs" role="tablist">
+                <button class="admin-tab active" data-tab="profile" role="tab">My Profile</button>
+                <button class="admin-tab" data-tab="announcements" role="tab">Announcements</button>
+                <button class="admin-tab" data-tab="users" role="tab">Users</button>
+            </div>
+
+            <!-- Profile Panel -->
+            <div class="admin-panel active" id="panel-profile">
+                <div class="profile-grid">
+                    <div class="avatar-upload">
+                        <div class="avatar-preview" id="avatar-preview">👤</div>
+                        <label class="btn-upload" for="avatar-input">Upload Photo</label>
+                        <input type="file" id="avatar-input" accept="image/*" hidden>
+                    </div>
+                    <form class="profile-form" id="profile-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="profile-display-name">Display Name</label>
+                                <input type="text" id="profile-display-name">
+                            </div>
+                            <div class="form-group">
+                                <label for="profile-title">Title / Role</label>
+                                <input type="text" id="profile-title" placeholder="e.g. Chief Scout">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="profile-section">Section</label>
+                                <select id="profile-section">
+                                    <option value="">— None —</option>
+                                    <option value="beavers">Beavers</option>
+                                    <option value="cubs">Cubs</option>
+                                    <option value="scouts">Scouts</option>
+                                    <option value="ventures">Ventures</option>
+                                    <option value="rovers">Rovers</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="profile-meeting-day">Meeting Day</label>
+                                <select id="profile-meeting-day">
+                                    <option value="">— None —</option>
+                                    <option value="Monday">Monday</option>
+                                    <option value="Tuesday">Tuesday</option>
+                                    <option value="Wednesday">Wednesday</option>
+                                    <option value="Thursday">Thursday</option>
+                                    <option value="Friday">Friday</option>
+                                    <option value="Saturday">Saturday</option>
+                                    <option value="Sunday">Sunday</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="profile-bio">Bio</label>
+                            <textarea id="profile-bio" placeholder="A short bio about yourself (optional)"></textarea>
+                        </div>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="profile-show-leaders">
+                            <label for="profile-show-leaders">Show my profile on the public Leaders page</label>
+                        </div>
+                        <button type="submit" class="btn-primary" style="margin-top: 1rem;">Save Profile</button>
+                    </form>
+                </div>
+
+                <div class="password-section">
+                    <h3>Change Password</h3>
+                    <form id="password-form" style="max-width: 400px;">
+                        <div class="form-group">
+                            <label for="new-password">New Password</label>
+                            <input type="password" id="new-password" autocomplete="new-password" minlength="6" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="confirm-password">Confirm New Password</label>
+                            <input type="password" id="confirm-password" autocomplete="new-password" required>
+                        </div>
+                        <button type="submit" class="btn-primary">Update Password</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Announcements Panel -->
+            <div class="admin-panel" id="panel-announcements">
+                <div class="announcements-toolbar">
+                    <h2 style="margin: 0;">All Announcements</h2>
+                    <button class="btn-primary" id="btn-new-announcement">+ New Announcement</button>
+                </div>
+                <div class="announcement-list" id="announcement-list">
+                    <!-- Populated by JS -->
+                </div>
+            </div>
+
+            <!-- Users Panel -->
+            <div class="admin-panel" id="panel-users">
+                <div class="announcements-toolbar">
+                    <h2 style="margin: 0;">User Management</h2>
+                    <button class="btn-primary" id="btn-new-user">+ Add User</button>
+                </div>
+                <div class="user-list" id="user-list">
+                    <!-- Populated by JS -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Announcement Form Modal -->
+        <div class="modal-overlay" id="announcement-modal">
+            <div class="modal">
+                <h2 id="announcement-modal-title">New Announcement</h2>
+                <form id="announcement-form">
+                    <input type="hidden" id="announcement-edit-id">
+                    <div class="form-group">
+                        <label for="announcement-title">Title</label>
+                        <input type="text" id="announcement-title" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="announcement-body">Content</label>
+                        <div id="announcement-editor"></div>
+                        <button type="button" class="btn-embed" id="btn-embed-code" title="Insert embed code (YouTube, Google Maps, etc.)">
+                            &lt;/&gt; Embed Code
+                        </button>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="announcement-section">Section</label>
+                            <select id="announcement-section" required>
+                                <option value="general">General</option>
+                                <option value="all">All Sections</option>
+                                <option value="beavers">Beavers</option>
+                                <option value="cubs">Cubs</option>
+                                <option value="scouts">Scouts</option>
+                                <option value="ventures">Ventures</option>
+                                <option value="rovers">Rovers</option>
+                            </select>
+                        </div>
+                        <div class="form-group" id="night-group" style="display:none;">
+                            <label for="announcement-night">Meeting Night</label>
+                            <select id="announcement-night">
+                                <option value="">All nights</option>
+                                <option value="monday">Monday</option>
+                                <option value="tuesday">Tuesday</option>
+                                <option value="wednesday">Wednesday</option>
+                                <option value="thursday">Thursday</option>
+                                <option value="friday">Friday</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="announcement-date">Display Date</label>
+                            <input type="text" id="announcement-date" placeholder="e.g. May 28, 2026">
+                        </div>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="announcement-pinned">
+                        <label for="announcement-pinned">Pin to home page</label>
+                    </div>
+                    <div class="modal-actions">
+                        <button type="button" class="btn-secondary" id="btn-cancel-announcement">Cancel</button>
+                        <button type="submit" class="btn-primary">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- New User Modal -->
+        <div class="modal-overlay" id="user-modal">
+            <div class="modal">
+                <h2>Add New Leader</h2>
+                <form id="new-user-form">
+                    <div class="form-group">
+                        <label for="new-user-username">Username</label>
+                        <input type="text" id="new-user-username" required pattern="[a-z0-9]+" title="Lowercase letters and numbers only">
+                    </div>
+                    <div class="form-group">
+                        <label for="new-user-display-name">Display Name</label>
+                        <input type="text" id="new-user-display-name" required>
+                    </div>
+                    <p style="font-size: 0.85rem; color: var(--color-text-muted);">
+                        The account will be created with the default password. The leader should change it on first login.
+                    </p>
+                    <div class="modal-actions">
+                        <button type="button" class="btn-secondary" id="btn-cancel-user">Cancel</button>
+                        <button type="submit" class="btn-primary">Create Account</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <!-- Toast -->
+    <div class="admin-toast" id="admin-toast"></div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-accent"></div>
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <h4>25th Limerick St. Oliver Plunkett</h4>
+                    <p>Shannon Banks Scout Den<br>Corbally, Limerick<br>V94 K72O</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact</h4>
+                    <p><a href="mailto:ryanml64@gmail.com">ryanml64@gmail.com</a></p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <p>
+                        <a href="forms.html">Forms &amp; Documents</a><br>
+                        <a href="announcements.html">News &amp; Announcements</a><br>
+                        <a href="resources.html">Leader Resources</a><br>
+                        <a href="https://www.scouts.ie" target="_blank" rel="noopener noreferrer">Scouting Ireland</a>
+                    </p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 25th Limerick St. Oliver Plunkett Scout Group.</p>
+                <p>Part of <a href="https://www.scouts.ie" target="_blank" rel="noopener noreferrer">Scouting Ireland</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
+    <script src="supabase-config.js"></script>
+    <script src="admin.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

@@ -138,44 +138,15 @@
         <section class="section" style="background: var(--color-surface);">
             <div class="container">
                 <!-- Pinned Announcement -->
-                <div class="pinned-announcement" data-aos="fade-up">
-                    <div class="pinned-banner">
-                        <span class="pinned-icon">📌</span>
-                        <div>
-                            <h3 style="margin:0;">50th Anniversary Group Camp — Killaloe, June 6th</h3>
-                            <p style="margin: var(--space-xs) 0 0;">All sections are invited to our golden anniversary celebration camp at Killaloe Activity Centre. Forms and details coming soon from the Group Leader.</p>
-                        </div>
-                        <a href="announcements.html" class="btn btn--outline btn--sm">Details</a>
-                    </div>
-                </div>
+                <div id="pinned-container" data-aos="fade-up"></div>
 
                 <!-- Latest News -->
                 <div class="section-header" data-aos="fade-up" style="margin-top: var(--space-2xl);">
                     <h2>Latest News</h2>
                     <p>What's happening across our group this week</p>
                 </div>
-                <div class="card-grid card-grid--3" data-aos="fade-up">
-                    <article class="card card--accent-top card--beavers">
-                        <span class="card-badge">Beavers</span>
-                        <span class="card-date">26 May 2026</span>
-                        <h3>No Meeting Tonight</h3>
-                        <p>No Beaver meeting this Tuesday — back next week for the End of Year Party!</p>
-                        <a href="announcements-beavers.html#no-meeting-may-26" class="card-link">Read more →</a>
-                    </article>
-                    <article class="card card--accent-top card--scouts">
-                        <span class="card-badge">Scouts</span>
-                        <span class="card-date">25 May 2026</span>
-                        <h3>Shield Gold Standard!</h3>
-                        <p>Our Scouts achieved Gold Standard at the 2026 County Shield in Pallaskenry — well done to all!</p>
-                        <a href="announcements-scouts.html#shield-gold-standard" class="card-link">Read more →</a>
-                    </article>
-                    <article class="card card--accent-top card--cubs">
-                        <span class="card-badge">Cubs</span>
-                        <span class="card-date">May 2026</span>
-                        <h3>National Cub Challenge</h3>
-                        <p>Our Cubs are taking part in the National Challenge — working towards their badges before end of term.</p>
-                        <a href="announcements-cubs.html#national-cub-challenge" class="card-link">Read more →</a>
-                    </article>
+                <div class="card-grid card-grid--3" data-aos="fade-up" id="latest-news-container">
+                    <p style="color: var(--color-text-muted);">Loading news...</p>
                 </div>
                 <div class="text-center" style="margin-top: var(--space-xl);">
                     <a href="announcements.html" class="btn btn--secondary">View All News →</a>
@@ -289,13 +260,60 @@
             </div>
             <div class="footer-bottom">
                 <p>&copy; 2025 25th Limerick St. Oliver Plunkett Scout Group. All rights reserved.</p>
-                <p>Part of <a href="https://www.scouts.ie" target="_blank" rel="noopener noreferrer">Scouting Ireland</a></p>
+                <p>Part of <a href="https://www.scouts.ie" target="_blank" rel="noopener noreferrer">Scouting Ireland</a> · <a href="admin.html">Leader Login</a></p>
             </div>
         </div>
     </footer>
 
     <!-- Scripts -->
     <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase-config.js"></script>
+    <script src="supabase-public.js"></script>
     <script src="script.js"></script>
+    <script>
+        (async () => {
+            // Pinned announcements
+            const pinnedContainer = document.getElementById('pinned-container');
+            const pinned = await fetchPinnedAnnouncements();
+            if (pinned.length > 0) {
+                pinnedContainer.innerHTML = pinned.map(a => `
+                    <div class="pinned-announcement">
+                        <div class="pinned-banner">
+                            <span class="pinned-icon">📌</span>
+                            <div>
+                                <h3 style="margin:0;">${escapeHtml(a.title)}</h3>
+                                <p style="margin: var(--space-xs) 0 0;">${escapeHtml(a.body.substring(0, 150))}${a.body.length > 150 ? '…' : ''}</p>
+                            </div>
+                            <a href="announcements.html#${escapeAttr(a.slug)}" class="btn btn--outline btn--sm">Details</a>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            // Latest news
+            const newsContainer = document.getElementById('latest-news-container');
+            const latest = await fetchLatestAnnouncements(3);
+            if (latest.length === 0) {
+                newsContainer.innerHTML = '<p style="color: var(--color-text-muted);">No recent news.</p>';
+            } else {
+                newsContainer.innerHTML = latest.map(a => {
+                    const sectionClass = a.section && a.section !== 'group' ? `card--accent-top card--${a.section}` : 'card--accent-top';
+                    const badge = formatSectionLabel(a.section);
+                    const pageMap = { beavers: 'announcements-beavers.html', cubs: 'announcements-cubs.html', scouts: 'announcements-scouts.html' };
+                    const page = pageMap[a.section] || 'announcements.html';
+                    return `
+                        <article class="card ${sectionClass}">
+                            <span class="card-badge">${escapeHtml(badge)}</span>
+                            <span class="card-date">${escapeHtml(a.date_display || '')}</span>
+                            <h3>${escapeHtml(a.title)}</h3>
+                            <p>${escapeHtml(a.body.substring(0, 100))}${a.body.length > 100 ? '…' : ''}</p>
+                            <a href="${page}#${escapeAttr(a.slug)}" class="card-link">Read more →</a>
+                        </article>
+                    `;
+                }).join('');
+            }
+        })();
+    </script>
 </body>
 </html>

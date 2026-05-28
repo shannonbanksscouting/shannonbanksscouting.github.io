@@ -66,52 +66,8 @@
                     <p>All our leaders are Garda vetted, trained volunteers who give their time freely</p>
                 </div>
 
-                <div class="card-grid" data-aos="fade-up">
-                    <!-- Beavers -->
-                    <div class="card card--accent-top card--beavers leader-card">
-                        <div class="leader-avatar leader-avatar--beavers">👤</div>
-                        <h3>Claire</h3>
-                        <p><strong>Monday Beavers</strong></p>
-                        <span class="badge badge--beavers">Beavers</span>
-                    </div>
-
-                    <div class="card card--accent-top card--beavers leader-card">
-                        <div class="leader-avatar leader-avatar--beavers">👤</div>
-                        <h3>Andrew Le Gear</h3>
-                        <p><strong>Tuesday Beavers</strong></p>
-                        <span class="badge badge--beavers">Beavers</span>
-                    </div>
-
-                    <!-- Cubs -->
-                    <div class="card card--accent-top card--cubs leader-card">
-                        <div class="leader-avatar leader-avatar--cubs">👤</div>
-                        <h3>Doris Ryan</h3>
-                        <p><strong>Wednesday Cubs</strong></p>
-                        <span class="badge badge--cubs">Cubs</span>
-                    </div>
-
-                    <div class="card card--accent-top card--cubs leader-card">
-                        <div class="leader-avatar leader-avatar--cubs">👤</div>
-                        <h3>Shane Riordan</h3>
-                        <p><strong>Thursday Cubs</strong></p>
-                        <span class="badge badge--cubs">Cubs</span>
-                    </div>
-
-                    <!-- Scouts -->
-                    <div class="card card--accent-top card--scouts leader-card">
-                        <div class="leader-avatar leader-avatar--scouts">👤</div>
-                        <h3>Michael Ryan</h3>
-                        <p><strong>Friday Scouts</strong><br>Chief Scout</p>
-                        <span class="badge badge--scouts">Scouts</span>
-                    </div>
-
-                    <!-- Ventures -->
-                    <div class="card card--accent-top card--ventures leader-card">
-                        <div class="leader-avatar leader-avatar--ventures">👤</div>
-                        <h3>Eoin</h3>
-                        <p><strong>Ventures</strong></p>
-                        <span class="badge badge--ventures">Ventures</span>
-                    </div>
+                <div class="card-grid" data-aos="fade-up" id="leaders-container">
+                    <p style="color: var(--color-text-muted);">Loading leaders...</p>
                 </div>
             </div>
         </section>
@@ -153,12 +109,26 @@
             </div>
             <div class="footer-bottom">
                 <p>&copy; 2025 25th Limerick St. Oliver Plunkett Scout Group.</p>
-                <p>Part of <a href="https://www.scouts.ie" target="_blank" rel="noopener noreferrer">Scouting Ireland</a></p>
+                <p>Part of <a href="https://www.scouts.ie" target="_blank" rel="noopener noreferrer">Scouting Ireland</a> · <a href="admin.html">Leader Login</a></p>
             </div>
         </div>
     </footer>
 
     <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase-config.js"></script>
+    <script src="supabase-public.js"></script>
     <script src="script.js"></script>
+    <script>
+        (async () => {
+            const container = document.getElementById('leaders-container');
+            const leaders = await fetchLeaders();
+            if (leaders.length === 0) {
+                container.innerHTML = '<p style="color: var(--color-text-muted);">No leaders to display.</p>';
+            } else {
+                container.innerHTML = leaders.map(renderLeaderCard).join('');
+            }
+        })();
+    </script>
 </body>
 </html>
