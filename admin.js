@@ -669,12 +669,15 @@ async function createNewUser() {
         return;
     }
 
-    // Use Supabase Auth signup (this works because we allow signups via the API)
-    // Note: This uses the anon key. For production, you'd use an Edge Function with service_role.
-    // For this small group, we enable signup in Supabase dashboard settings.
+    // Save the current admin session so we can restore it after signUp
+    const { data: sessionData } = await sb.auth.getSession();
+    const adminSession = sessionData.session;
+
+    // signUp() creates the user but also switches the active session to them
     const { data, error } = await sb.auth.signUp({
         email: username + EMAIL_DOMAIN,
-        password: '5c0ut543v3r!'
+        password: '5c0ut543v3r!',
+        options: { emailRedirectTo: undefined }
     });
 
     if (error) {
@@ -683,7 +686,16 @@ async function createNewUser() {
         } else {
             showToast('Failed to create user: ' + error.message, true);
         }
+        // Restore admin session in case it was disrupted
+        if (adminSession) {
+            await sb.auth.setSession({ access_token: adminSession.access_token, refresh_token: adminSession.refresh_token });
+        }
         return;
+    }
+
+    // Restore the admin session immediately
+    if (adminSession) {
+        await sb.auth.setSession({ access_token: adminSession.access_token, refresh_token: adminSession.refresh_token });
     }
 
     // Update the auto-created profile with the display name
